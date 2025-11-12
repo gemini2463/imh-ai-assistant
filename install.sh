@@ -317,7 +317,7 @@ install_cwp() {
     create_directory "/usr/local/cwpsrv/htdocs/resources/admin/include"
 
     # Move additional files
-    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.php" "/usr/local/cwpsrv/htdocs/admin/modules/$SCRIPT_NAME.php" || print_message "$YELLOW" "Warning: Failed to copy PHP file"
+    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.php" "/usr/local/cwpsrv/htdocs/resources/admin/modules/$SCRIPT_NAME.php" || print_message "$YELLOW" "Warning: Failed to copy PHP file"
 
     copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.png" "/usr/local/cwpsrv/htdocs/admin/design/img/$SCRIPT_NAME.png" || print_message "$YELLOW" "Warning: Failed to copy image"
 
