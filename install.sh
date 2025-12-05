@@ -261,7 +261,8 @@ install_cwp() {
     create_directory "/usr/local/cwpsrv/htdocs/resources/admin/include"
     create_directory "/usr/local/cwpsrv/htdocs/resources/admin/addons/ajax"
 
-    mv /usr/local/cwpsrv/htdocs/admin/admin/index.php /usr/local/cwpsrv/htdocs/admin/admin/index2.php
+    cp /usr/local/cwpsrv/htdocs/admin/admin/index.php mv /usr/local/cwpsrv/htdocs/admin/admin/index.php-bak-$(date +%Y%m%d_%H%M%S) 2>/dev/null || true
+    mv /usr/local/cwpsrv/htdocs/admin/admin/index.php /usr/local/cwpsrv/htdocs/admin/admin/index2.php 2>/dev/null || true
 
     # Move additional files
     copy_if_changed "$TEMP_DIR/index.php" "/usr/local/cwpsrv/htdocs/admin/admin/index.php" || print_message "$YELLOW" "Warning: Failed to copy PHP file"
@@ -291,7 +292,7 @@ main() {
     done
 
     # Validate base URL is accessible
-    validate_url "$BASE_URL/$SCRIPT_NAME.php"
+    validate_url "$BASE_URL/index.php"
 
     # Detect control panel
     local panel=$(detect_control_panel)
