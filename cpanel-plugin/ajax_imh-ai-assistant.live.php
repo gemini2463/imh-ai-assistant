@@ -3,32 +3,36 @@
 //      /usr/local/cpanel/base/3rdparty/imh-ai-assistant/ajax_imh-ai-assistant.live.php
 
 error_reporting(E_ALL);
-@ini_set('display_errors', '1');
+@ini_set('display_errors', '0'); // important for JSON endpoints
+@ini_set('log_errors', '1');
 @ini_set('error_log', '/usr/local/cpanel/base/3rdparty/imh-ai-assistant/error.log');
 
-session_start(); 
+session_start();
 
-// Ensure predictable PATH for web-executed PHP (cPanel environments can have a minimal PATH)
-putenv('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin');
-putenv('LANG=C');
-
-// Require an authenticated cPanel user context
-$cpuser = getenv('REMOTE_USER') ?: '';
-if ($cpuser === '') {
-    json_response(['success' => false, 'error' => 'Access Denied'], 403);
-}
-
-function json_response(array $data, int $statusCode = 200): void
-{
+function json_response(array $data, int $statusCode = 200): void {
     http_response_code($statusCode);
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode($data);
     exit;
 }
 
-$shellCmd = isset($data['shellCmd']) ? (string) $data['shellCmd'] : null;
+$cpuser = getenv('REMOTE_USER') ?: '';
+if ($cpuser === '') {
+    json_response(['success' => false, 'error' => 'Access Denied'], 403);
+}
 
-if ($shellCmd === null) {
+$rawInput = file_get_contents('php://input');
+$data = json_decode($rawInput, true);
+
+if (JSON_ERROR_NONE !== json_last_error()) {
+    json_response(['success' => false, 'error' => 'Invalid JSON: ' . json_last_error_msg()], 400);
+}
+if (!is_array($data)) {
+    json_response(['success' => false, 'error' => 'JSON payload must be an object'], 400);
+}
+
+$shellCmd = isset($data['shellCmd']) ? trim((string)$data['shellCmd']) : '';
+if ($shellCmd === '') {
     json_response(['success' => false, 'error' => 'Missing required field: shellCmd'], 422);
 }
 
