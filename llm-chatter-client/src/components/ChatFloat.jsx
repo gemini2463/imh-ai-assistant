@@ -35,7 +35,7 @@ const Dropdown = ({ label, value, options, onChange }) => {
       {open && (
         <div
           className="
-            absolute left-0 mt-1 w-max
+            relative left-0 mt-1 w-max
             min-w-full
             rounded-xl
             bg-black
@@ -484,8 +484,8 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      fixed top-36 right-6 z-[2147483647]
-      w-[95%] max-w-[95vw]
+      w-[99%] max-w-[99vw]
+      mt-4
       rounded-3xl
       bg-black/95
       border border-white/15
@@ -494,7 +494,7 @@ const ChatFloat = ({
       overflow-hidden
       backdrop-blur-xl
       flex flex-col
-      max-h-[70vh]
+      max-h-[93vh]
       transition-transform transition-opacity duration-200
       ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
     `}
@@ -544,7 +544,7 @@ const ChatFloat = ({
           >
             <i className="fa-regular fa-pen-to-square text-xl mr-1 text-white" />
           </button>
-          <button
+          {/*           <button
             type="button"
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             className="
@@ -557,7 +557,7 @@ const ChatFloat = ({
             onClick={onClose}
           >
             <i className="fas fa-chevron-down text-xl text-white" />
-          </button>
+          </button> */}
         </div>
       </div>
 
@@ -587,7 +587,7 @@ const ChatFloat = ({
             return (
               <div
                 key={idx}
-                className="max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto bg-gray-400 border border-white/10 text-gray-100 text-4xl"
+                className="max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto border border-white/10 bg-nosferatu-300 text-black text-3xl"
                 style={{ fontFamily: "inherit", fontStyle: "normal" }}
               >
                 <ContentText role="assistant" txt={txt} />
@@ -598,7 +598,7 @@ const ChatFloat = ({
           return (
             <div
               key={idx}
-              className="max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 ml-auto bg-white text-black text-4xl"
+              className="max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 ml-auto bg-cullen-300 text-black text-3xl"
               style={{ fontFamily: "inherit", fontStyle: "normal" }}
             >
               {txt}
@@ -607,7 +607,7 @@ const ChatFloat = ({
         })}
 
         {pending && (
-          <div className="max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto bg-white border border-white/10 text-white/80 text-4xl">
+          <div className="max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto border border-white/50 bg-nosferatu-300 text-black text-3xl">
             <ContentText role="assistant" txt={tempOutput || "Thinking..."} />
           </div>
         )}

@@ -11964,11 +11964,11 @@ function R4(r, s, l) {
         )
       );
 }
-function e8(r) {
+function eM(r) {
   const s = /^([-+\w]{1,25})(:?\/\/|:)/.exec(r);
   return (s && s[1]) || "";
 }
-function t8(r, s) {
+function tM(r, s) {
   r = r || 10;
   const l = new Array(r),
     u = new Array(r);
@@ -11990,7 +11990,7 @@ function t8(r, s) {
     }
   );
 }
-function r8(r, s) {
+function rM(r, s) {
   let l = 0,
     u = 1e3 / s,
     w,
@@ -12015,8 +12015,8 @@ function r8(r, s) {
 }
 const xu = (r, s, l = 3) => {
     let u = 0;
-    const w = t8(50, 250);
-    return r8((i) => {
+    const w = tM(50, 250);
+    return rM((i) => {
       const p = i.loaded,
         g = i.lengthComputable ? i.total : void 0,
         x = p - u,
@@ -12045,7 +12045,7 @@ const xu = (r, s, l = 3) => {
     (r) =>
     (...s) =>
       Oe.asap(() => r(...s)),
-  n8 = Er.hasStandardBrowserEnv
+  nM = Er.hasStandardBrowserEnv
     ? ((r, s) => (l) => (
         (l = new URL(l, Er.origin)),
         r.protocol === l.protocol &&
@@ -12056,7 +12056,7 @@ const xu = (r, s, l = 3) => {
         Er.navigator && /(msie|trident)/i.test(Er.navigator.userAgent)
       )
     : () => !0,
-  i8 = Er.hasStandardBrowserEnv
+  iM = Er.hasStandardBrowserEnv
     ? {
         write(r, s, l, u, w, i, p) {
           if (typeof document > "u") return;
@@ -12086,15 +12086,15 @@ const xu = (r, s, l = 3) => {
         },
         remove() {},
       };
-function a8(r) {
+function aM(r) {
   return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(r);
 }
-function o8(r, s) {
+function oM(r, s) {
   return s ? r.replace(/\/?\/$/, "") + "/" + s.replace(/^\/+/, "") : r;
 }
 function F4(r, s, l) {
-  let u = !a8(s);
-  return r && (u || l == !1) ? o8(r, s) : s;
+  let u = !aM(s);
+  return r && (u || l == !1) ? oM(r, s) : s;
 }
 const tm = (r) => (r instanceof Ur ? { ...r } : r);
 function Di(r, s) {
@@ -12207,16 +12207,16 @@ const I4 = (r) => {
     }
     if (
       Er.hasStandardBrowserEnv &&
-      (u && Oe.isFunction(u) && (u = u(s)), u || (u !== !1 && n8(s.url)))
+      (u && Oe.isFunction(u) && (u = u(s)), u || (u !== !1 && nM(s.url)))
     ) {
-      const x = w && i && i8.read(i);
+      const x = w && i && iM.read(i);
       x && p.set(w, x);
     }
     return s;
   },
-  s8 = typeof XMLHttpRequest < "u",
-  u8 =
-    s8 &&
+  sM = typeof XMLHttpRequest < "u",
+  uM =
+    sM &&
     function (r) {
       return new Promise(function (l, u) {
         const w = I4(r);
@@ -12323,7 +12323,7 @@ const I4 = (r) => {
               (w.signal.aborted
                 ? m()
                 : w.signal.addEventListener("abort", m))));
-        const D = e8(w.url);
+        const D = eM(w.url);
         if (D && Er.protocols.indexOf(D) === -1) {
           u(new xt("Unsupported protocol " + D + ":", xt.ERR_BAD_REQUEST, r));
           return;
@@ -12331,7 +12331,7 @@ const I4 = (r) => {
         P.send(i || null);
       });
     },
-  l8 = (r, s) => {
+  lM = (r, s) => {
     const { length: l } = (r = r ? r.filter(Boolean) : []);
     if (s || l) {
       let u = new AbortController(),
@@ -12366,7 +12366,7 @@ const I4 = (r) => {
       return ((x.unsubscribe = () => Oe.asap(g)), x);
     }
   },
-  f8 = function* (r, s) {
+  fM = function* (r, s) {
     let l = r.byteLength;
     if (l < s) {
       yield r;
@@ -12376,10 +12376,10 @@ const I4 = (r) => {
       w;
     for (; u < l; ) ((w = u + s), yield r.slice(u, w), (u = w));
   },
-  h8 = async function* (r, s) {
-    for await (const l of c8(r)) yield* f8(l, s);
+  hM = async function* (r, s) {
+    for await (const l of cM(r)) yield* fM(l, s);
   },
-  c8 = async function* (r) {
+  cM = async function* (r) {
     if (r[Symbol.asyncIterator]) {
       yield* r;
       return;
@@ -12396,7 +12396,7 @@ const I4 = (r) => {
     }
   },
   rm = (r, s, l, u) => {
-    const w = h8(r, s);
+    const w = hM(r, s);
     let i = 0,
       p,
       g = (x) => {
@@ -12430,7 +12430,7 @@ const I4 = (r) => {
   },
   nm = 64 * 1024,
   { isFunction: Ls } = Oe,
-  d8 = (({ Request: r, Response: s }) => ({ Request: r, Response: s }))(
+  dM = (({ Request: r, Response: s }) => ({ Request: r, Response: s }))(
     Oe.global
   ),
   { ReadableStream: im, TextEncoder: am } = Oe.global,
@@ -12441,8 +12441,8 @@ const I4 = (r) => {
       return !1;
     }
   },
-  p8 = (r) => {
-    r = Oe.merge.call({ skipUndefined: !0 }, d8, r);
+  pM = (r) => {
+    r = Oe.merge.call({ skipUndefined: !0 }, dM, r);
     const { fetch: s, Request: l, Response: u } = r,
       w = s ? Ls(s) : typeof fetch == "function",
       i = Ls(l),
@@ -12518,7 +12518,7 @@ const I4 = (r) => {
         } = I4(C),
         S = s || fetch;
       ue = ue ? (ue + "").toLowerCase() : "text";
-      let e = l8([D, z && z.toAbortSignal()], H),
+      let e = lM([D, z && z.toAbortSignal()], H),
         n = null;
       const a =
         e &&
@@ -12602,7 +12602,7 @@ const I4 = (r) => {
       }
     };
   },
-  v8 = new Map(),
+  vM = new Map(),
   T4 = (r) => {
     let s = (r && r.env) || {};
     const { fetch: l, Request: u, Response: w } = s,
@@ -12611,16 +12611,16 @@ const I4 = (r) => {
       g = p,
       x,
       M,
-      m = v8;
+      m = vM;
     for (; g--; )
       ((x = i[g]),
         (M = m.get(x)),
-        M === void 0 && m.set(x, (M = g ? new Map() : p8(s))),
+        M === void 0 && m.set(x, (M = g ? new Map() : pM(s))),
         (m = M));
     return M;
   };
 T4();
-const Td = { http: Ix, xhr: u8, fetch: { get: T4 } };
+const Td = { http: Ix, xhr: uM, fetch: { get: T4 } };
 Oe.forEach(Td, (r, s) => {
   if (r) {
     try {
@@ -12630,8 +12630,8 @@ Oe.forEach(Td, (r, s) => {
   }
 });
 const sm = (r) => `- ${r}`,
-  m8 = (r) => Oe.isFunction(r) || r === null || r === !1;
-function g8(r, s) {
+  mM = (r) => Oe.isFunction(r) || r === null || r === !1;
+function gM(r, s) {
   r = Oe.isArray(r) ? r : [r];
   const { length: l } = r;
   let u, w;
@@ -12641,7 +12641,7 @@ function g8(r, s) {
     let g;
     if (
       ((w = u),
-      !m8(u) && ((w = Td[(g = String(u)).toLowerCase()]), w === void 0))
+      !mM(u) && ((w = Td[(g = String(u)).toLowerCase()]), w === void 0))
     )
       throw new xt(`Unknown adapter '${g}'`);
     if (w && (Oe.isFunction(w) || (w = w.get(s)))) break;
@@ -12670,7 +12670,7 @@ function g8(r, s) {
   }
   return w;
 }
-const D4 = { getAdapter: g8, adapters: Td };
+const D4 = { getAdapter: gM, adapters: Td };
 function Tf(r) {
   if (
     (r.cancelToken && r.cancelToken.throwIfRequested(),
@@ -12758,7 +12758,7 @@ Iu.transitional = function (s, l, u) {
 Iu.spelling = function (s) {
   return (l, u) => (console.warn(`${u} is likely a misspelling of ${s}`), !0);
 };
-function y8(r, s, l) {
+function yM(r, s, l) {
   if (typeof r != "object")
     throw new xt("options must be an object", xt.ERR_BAD_OPTION_VALUE);
   const u = Object.keys(r);
@@ -12776,7 +12776,7 @@ function y8(r, s, l) {
     if (l !== !0) throw new xt("Unknown option " + i, xt.ERR_BAD_OPTION);
   }
 }
-const cu = { assertOptions: y8, validators: Iu },
+const cu = { assertOptions: yM, validators: Iu },
   Sn = cu.validators;
 let Ti = class {
   constructor(s) {
@@ -12921,7 +12921,7 @@ Oe.forEach(["post", "put", "patch"], function (s) {
   }
   ((Ti.prototype[s] = l()), (Ti.prototype[s + "Form"] = l(!0)));
 });
-let w8 = class N4 {
+let wM = class N4 {
   constructor(s) {
     if (typeof s != "function")
       throw new TypeError("executor must be a function.");
@@ -12988,12 +12988,12 @@ let w8 = class N4 {
     };
   }
 };
-function b8(r) {
+function bM(r) {
   return function (l) {
     return r.apply(null, l);
   };
 }
-function x8(r) {
+function xM(r) {
   return Oe.isObject(r) && r.isAxiosError === !0;
 }
 const md = {
@@ -13085,7 +13085,7 @@ function L4(r) {
 const ur = L4(Mo);
 ur.Axios = Ti;
 ur.CanceledError = ga;
-ur.CancelToken = w8;
+ur.CancelToken = wM;
 ur.isCancel = C4;
 ur.VERSION = P4;
 ur.toFormData = Fu;
@@ -13094,8 +13094,8 @@ ur.Cancel = ur.CanceledError;
 ur.all = function (s) {
   return Promise.all(s);
 };
-ur.spread = b8;
-ur.isAxiosError = x8;
+ur.spread = bM;
+ur.isAxiosError = xM;
 ur.mergeConfig = Di;
 ur.AxiosHeaders = Ur;
 ur.formToJSON = (r) => B4(Oe.isHTMLForm(r) ? new FormData(r) : r);
@@ -13127,7 +13127,7 @@ function qs(r) {
   }
   return r;
 }
-var M8 = {
+var MM = {
   read: function (r) {
     return (
       r[0] === '"' && (r = r.slice(1, -1)),
@@ -13197,8 +13197,8 @@ function gd(r, s) {
     }
   );
 }
-var Zr = gd(M8, { path: "/" });
-const _8 = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "",
+var Zr = gd(MM, { path: "/" });
+const _M = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "",
   vo = {
     floatingConfig: {
       serverURL: "https://ai.rossu.dev",
@@ -13233,12 +13233,12 @@ const _8 = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "",
         "SSL certificates",
       ],
     },
-    shellScriptPath: _8,
+    shellScriptPath: _M,
   };
 var Os = {},
   Df,
   fm;
-function S8() {
+function SM() {
   if (fm) return Df;
   fm = 1;
   var r = {
@@ -18203,17 +18203,17 @@ function S8() {
   return ((Df = r), Df);
 }
 var Pf, hm;
-function k8() {
-  return (hm || ((hm = 1), (Pf = S8())), Pf);
+function kM() {
+  return (hm || ((hm = 1), (Pf = SM())), Pf);
 }
 var cm;
-function E8() {
+function EM() {
   if (cm) return Os;
   ((cm = 1), Object.defineProperty(Os, "__esModule", { value: !0 }));
   function r(z) {
     return z && typeof z == "object" && "default" in z ? z.default : z;
   }
-  var s = r(k8());
+  var s = r(kM());
   class l {
     constructor() {
       this.tree = {};
@@ -18351,18 +18351,18 @@ function E8() {
   return ((Os.hyphenated = D), Os);
 }
 var Nf, dm;
-function A8() {
-  return (dm || ((dm = 1), (Nf = E8())), Nf);
+function AM() {
+  return (dm || ((dm = 1), (Nf = EM())), Nf);
 }
 var Lf, pm;
-function B8() {
+function BM() {
   if (pm) return Lf;
   pm = 1;
   function r(g) {
     return g && typeof g == "object" && "default" in g ? g.default : g;
   }
   var s = r(Eu()),
-    l = A8();
+    l = AM();
   function u(g, x) {
     if (g == null) return {};
     var M = {},
@@ -18415,8 +18415,8 @@ function B8() {
   }
   return ((Lf = i), Lf);
 }
-var C8 = B8();
-const R8 = yo(C8);
+var CM = BM();
+const RM = yo(CM);
 function vm(r, s) {
   const l = String(r);
   if (typeof s != "string") throw new TypeError("Expected character");
@@ -18427,13 +18427,13 @@ function vm(r, s) {
 }
 const Ir = ci(/[A-Za-z]/),
   Ar = ci(/[\dA-Za-z]/),
-  F8 = ci(/[#-'*+\--9=?A-Z^-~]/);
+  FM = ci(/[#-'*+\--9=?A-Z^-~]/);
 function Mu(r) {
   return r !== null && (r < 32 || r === 127);
 }
 const yd = ci(/\d/),
-  I8 = ci(/[\dA-Fa-f]/),
-  T8 = ci(/[!-/:-@[-`{-~]/);
+  IM = ci(/[\dA-Fa-f]/),
+  TM = ci(/[!-/:-@[-`{-~]/);
 function ht(r) {
   return r !== null && r < -2;
 }
@@ -18451,18 +18451,18 @@ function ci(r) {
     return l !== null && l > -1 && r.test(String.fromCharCode(l));
   }
 }
-function D8(r) {
+function DM(r) {
   if (typeof r != "string") throw new TypeError("Expected a string");
   return r.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
 }
 const Du = function (r) {
-  if (r == null) return q8;
+  if (r == null) return qM;
   if (typeof r == "function") return Pu(r);
-  if (typeof r == "object") return Array.isArray(r) ? P8(r) : N8(r);
-  if (typeof r == "string") return L8(r);
+  if (typeof r == "object") return Array.isArray(r) ? PM(r) : NM(r);
+  if (typeof r == "string") return LM(r);
   throw new Error("Expected function, string, or object as test");
 };
-function P8(r) {
+function PM(r) {
   const s = [];
   let l = -1;
   for (; ++l < r.length; ) s[l] = Du(r[l]);
@@ -18473,7 +18473,7 @@ function P8(r) {
     return !1;
   }
 }
-function N8(r) {
+function NM(r) {
   const s = r;
   return Pu(l);
   function l(u) {
@@ -18483,7 +18483,7 @@ function N8(r) {
     return !0;
   }
 }
-function L8(r) {
+function LM(r) {
   return Pu(s);
   function s(l) {
     return l && l.type === r;
@@ -18493,20 +18493,20 @@ function Pu(r) {
   return s;
   function s(l, u, w) {
     return !!(
-      O8(l) && r.call(this, l, typeof u == "number" ? u : void 0, w || void 0)
+      OM(l) && r.call(this, l, typeof u == "number" ? u : void 0, w || void 0)
     );
   }
 }
-function q8() {
+function qM() {
   return !0;
 }
-function O8(r) {
+function OM(r) {
   return r !== null && typeof r == "object" && "type" in r;
 }
 const q4 = [],
-  z8 = !0,
+  zM = !0,
   wd = !1,
-  U8 = "skip";
+  UM = "skip";
 function O4(r, s, l, u) {
   let w;
   typeof s == "function" && typeof l != "function"
@@ -18536,12 +18536,12 @@ function O4(r, s, l, u) {
         P;
       if (
         (!s || i(x, M, m[m.length - 1] || void 0)) &&
-        ((A = j8(l(x, m))), A[0] === wd)
+        ((A = jM(l(x, m))), A[0] === wd)
       )
         return A;
       if ("children" in x && x.children) {
         const I = x;
-        if (I.children && A[0] !== U8)
+        if (I.children && A[0] !== UM)
           for (
             F = (u ? I.children.length : -1) + p, P = m.concat(I);
             F > -1 && F < I.children.length;
@@ -18556,18 +18556,18 @@ function O4(r, s, l, u) {
     }
   }
 }
-function j8(r) {
+function jM(r) {
   return Array.isArray(r)
     ? r
     : typeof r == "number"
-      ? [z8, r]
+      ? [zM, r]
       : r == null
         ? q4
         : [r];
 }
-function H8(r, s, l) {
+function HM(r, s, l) {
   const w = Du((l || {}).ignore || []),
-    i = $8(s);
+    i = $M(s);
   let p = -1;
   for (; ++p < i.length; ) O4(r, "text", g);
   function g(M, m) {
@@ -18619,7 +18619,7 @@ function H8(r, s, l) {
     );
   }
 }
-function $8(r) {
+function $M(r) {
   const s = [];
   if (!Array.isArray(r))
     throw new TypeError("Expected find and replace tuple or list of tuples");
@@ -18627,14 +18627,14 @@ function $8(r) {
   let u = -1;
   for (; ++u < l.length; ) {
     const w = l[u];
-    s.push([W8(w[0]), V8(w[1])]);
+    s.push([WM(w[0]), VM(w[1])]);
   }
   return s;
 }
-function W8(r) {
-  return typeof r == "string" ? new RegExp(D8(r), "g") : r;
+function WM(r) {
+  return typeof r == "string" ? new RegExp(DM(r), "g") : r;
 }
-function V8(r) {
+function VM(r) {
   return typeof r == "function"
     ? r
     : function () {
@@ -18643,24 +18643,24 @@ function V8(r) {
 }
 const qf = "phrasing",
   Of = ["autolink", "link", "image", "label"];
-function K8() {
+function KM() {
   return {
-    transforms: [eM],
+    transforms: [e8],
     enter: {
-      literalAutolink: G8,
+      literalAutolink: GM,
       literalAutolinkEmail: zf,
       literalAutolinkHttp: zf,
       literalAutolinkWww: zf,
     },
     exit: {
-      literalAutolink: Q8,
-      literalAutolinkEmail: Y8,
-      literalAutolinkHttp: J8,
-      literalAutolinkWww: X8,
+      literalAutolink: QM,
+      literalAutolinkEmail: YM,
+      literalAutolinkHttp: JM,
+      literalAutolinkWww: XM,
     },
   };
 }
-function Z8() {
+function ZM() {
   return {
     unsafe: [
       {
@@ -18687,50 +18687,50 @@ function Z8() {
     ],
   };
 }
-function G8(r) {
+function GM(r) {
   this.enter({ type: "link", title: null, url: "", children: [] }, r);
 }
 function zf(r) {
   this.config.enter.autolinkProtocol.call(this, r);
 }
-function J8(r) {
+function JM(r) {
   this.config.exit.autolinkProtocol.call(this, r);
 }
-function X8(r) {
+function XM(r) {
   this.config.exit.data.call(this, r);
   const s = this.stack[this.stack.length - 1];
   (s.type, (s.url = "http://" + this.sliceSerialize(r)));
 }
-function Y8(r) {
+function YM(r) {
   this.config.exit.autolinkEmail.call(this, r);
 }
-function Q8(r) {
+function QM(r) {
   this.exit(r);
 }
-function eM(r) {
-  H8(
+function e8(r) {
+  HM(
     r,
     [
-      [/(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/gi, tM],
+      [/(https?:\/\/|www(?=\.))([-.\w]+)([^ \t\r\n]*)/gi, t8],
       [
         new RegExp(
           "(?<=^|\\s|\\p{P}|\\p{S})([-.\\w+]+)@([-\\w]+(?:\\.[-\\w]+)+)",
           "gu"
         ),
-        rM,
+        r8,
       ],
     ],
     { ignore: ["link", "linkReference"] }
   );
 }
-function tM(r, s, l, u, w) {
+function t8(r, s, l, u, w) {
   let i = "";
   if (
     !z4(w) ||
-    (/^w/i.test(s) && ((l = s + l), (s = ""), (i = "http://")), !nM(l))
+    (/^w/i.test(s) && ((l = s + l), (s = ""), (i = "http://")), !n8(l))
   )
     return !1;
-  const p = iM(l + u);
+  const p = i8(l + u);
   if (!p[0]) return !1;
   const g = {
     type: "link",
@@ -18740,7 +18740,7 @@ function tM(r, s, l, u, w) {
   };
   return p[1] ? [g, { type: "text", value: p[1] }] : g;
 }
-function rM(r, s, l, u) {
+function r8(r, s, l, u) {
   return !z4(u, !0) || /[-\d_]$/.test(l)
     ? !1
     : {
@@ -18750,7 +18750,7 @@ function rM(r, s, l, u) {
         children: [{ type: "text", value: s + "@" + l }],
       };
 }
-function nM(r) {
+function n8(r) {
   const s = r.split(".");
   return !(
     s.length < 2 ||
@@ -18760,7 +18760,7 @@ function nM(r) {
       (/_/.test(s[s.length - 2]) || !/[a-zA-Z\d]/.test(s[s.length - 2])))
   );
 }
-function iM(r) {
+function i8(r) {
   const s = /[!"&'),.:;<>?\]}]+$/.exec(r);
   if (!s) return [r, void 0];
   r = r.slice(0, s.index);
@@ -18783,43 +18783,43 @@ function yn(r) {
     .toLowerCase()
     .toUpperCase();
 }
-U4.peek = dM;
-function aM() {
+U4.peek = d8;
+function a8() {
   this.buffer();
 }
-function oM(r) {
+function o8(r) {
   this.enter({ type: "footnoteReference", identifier: "", label: "" }, r);
 }
-function sM() {
+function s8() {
   this.buffer();
 }
-function uM(r) {
+function u8(r) {
   this.enter(
     { type: "footnoteDefinition", identifier: "", label: "", children: [] },
     r
   );
 }
-function lM(r) {
+function l8(r) {
   const s = this.resume(),
     l = this.stack[this.stack.length - 1];
   (l.type,
     (l.identifier = yn(this.sliceSerialize(r)).toLowerCase()),
     (l.label = s));
 }
-function fM(r) {
+function f8(r) {
   this.exit(r);
 }
-function hM(r) {
+function h8(r) {
   const s = this.resume(),
     l = this.stack[this.stack.length - 1];
   (l.type,
     (l.identifier = yn(this.sliceSerialize(r)).toLowerCase()),
     (l.label = s));
 }
-function cM(r) {
+function c8(r) {
   this.exit(r);
 }
-function dM() {
+function d8() {
   return "[";
 }
 function U4(r, s, l, u) {
@@ -18835,23 +18835,23 @@ function U4(r, s, l, u) {
     i
   );
 }
-function pM() {
+function p8() {
   return {
     enter: {
-      gfmFootnoteCallString: aM,
-      gfmFootnoteCall: oM,
-      gfmFootnoteDefinitionLabelString: sM,
-      gfmFootnoteDefinition: uM,
+      gfmFootnoteCallString: a8,
+      gfmFootnoteCall: o8,
+      gfmFootnoteDefinitionLabelString: s8,
+      gfmFootnoteDefinition: u8,
     },
     exit: {
-      gfmFootnoteCallString: lM,
-      gfmFootnoteCall: fM,
-      gfmFootnoteDefinitionLabelString: hM,
-      gfmFootnoteDefinition: cM,
+      gfmFootnoteCallString: l8,
+      gfmFootnoteCall: f8,
+      gfmFootnoteDefinitionLabelString: h8,
+      gfmFootnoteDefinition: c8,
     },
   };
 }
-function vM(r) {
+function v8(r) {
   let s = !1;
   return (
     r && r.firstLineBlank && (s = !0),
@@ -18878,20 +18878,20 @@ function vM(r) {
           (s
             ? `
 `
-            : " ") + i.indentLines(i.containerFlow(u, g.current()), s ? j4 : mM)
+            : " ") + i.indentLines(i.containerFlow(u, g.current()), s ? j4 : m8)
         ))),
       M(),
       x
     );
   }
 }
-function mM(r, s, l) {
+function m8(r, s, l) {
   return s === 0 ? r : j4(r, s, l);
 }
 function j4(r, s, l) {
   return (l ? "" : "    ") + r;
 }
-const gM = [
+const g8 = [
   "autolink",
   "destinationLiteral",
   "destinationRaw",
@@ -18899,24 +18899,24 @@ const gM = [
   "titleQuote",
   "titleApostrophe",
 ];
-H4.peek = MM;
-function yM() {
+H4.peek = M8;
+function y8() {
   return {
     canContainEols: ["delete"],
-    enter: { strikethrough: bM },
-    exit: { strikethrough: xM },
+    enter: { strikethrough: b8 },
+    exit: { strikethrough: x8 },
   };
 }
-function wM() {
+function w8() {
   return {
-    unsafe: [{ character: "~", inConstruct: "phrasing", notInConstruct: gM }],
+    unsafe: [{ character: "~", inConstruct: "phrasing", notInConstruct: g8 }],
     handlers: { delete: H4 },
   };
 }
-function bM(r) {
+function b8(r) {
   this.enter({ type: "delete", children: [] }, r);
 }
-function xM(r) {
+function x8(r) {
   this.exit(r);
 }
 function H4(r, s, l, u) {
@@ -18930,16 +18930,16 @@ function H4(r, s, l, u) {
     p
   );
 }
-function MM() {
+function M8() {
   return "~";
 }
-function _M(r) {
+function _8(r) {
   return r.length;
 }
-function SM(r, s) {
+function S8(r, s) {
   const l = s || {},
     u = (l.align || []).concat(),
-    w = l.stringLength || _M,
+    w = l.stringLength || _8,
     i = [],
     p = [],
     g = [],
@@ -18951,7 +18951,7 @@ function SM(r, s) {
       P = [];
     let I = -1;
     for (r[m].length > M && (M = r[m].length); ++I < r[m].length; ) {
-      const D = kM(r[m][I]);
+      const D = k8(r[m][I]);
       if (l.alignDelimiters !== !1) {
         const z = w(D);
         ((P[I] = z), (x[I] === void 0 || z > x[I]) && (x[I] = z));
@@ -19023,7 +19023,7 @@ function SM(r, s) {
   return C.join(`
 `);
 }
-function kM(r) {
+function k8(r) {
   return r == null ? "" : String(r);
 }
 function mm(r) {
@@ -19036,17 +19036,17 @@ function mm(r) {
         ? 114
         : 0;
 }
-function EM(r, s, l, u) {
+function E8(r, s, l, u) {
   const w = l.enter("blockquote"),
     i = l.createTracker(u);
   (i.move("> "), i.shift(2));
-  const p = l.indentLines(l.containerFlow(r, i.current()), AM);
+  const p = l.indentLines(l.containerFlow(r, i.current()), A8);
   return (w(), p);
 }
-function AM(r, s, l) {
+function A8(r, s, l) {
   return ">" + (l ? "" : " ") + r;
 }
-function BM(r, s) {
+function B8(r, s) {
   return gm(r, s.inConstruct, !0) && !gm(r, s.notInConstruct, !1);
 }
 function gm(r, s, l) {
@@ -19062,13 +19062,13 @@ function ym(r, s, l, u) {
       l.unsafe[w].character ===
         `
 ` &&
-      BM(l.stack, l.unsafe[w])
+      B8(l.stack, l.unsafe[w])
     )
       return /[ \t]/.test(u.before) ? "" : " ";
   return `\\
 `;
 }
-function CM(r, s) {
+function C8(r, s) {
   const l = String(r);
   let u = l.indexOf(s),
     w = u,
@@ -19081,7 +19081,7 @@ function CM(r, s) {
       (u = l.indexOf(s, w)));
   return p;
 }
-function RM(r, s) {
+function R8(r, s) {
   return !!(
     s.options.fences === !1 &&
     r.value &&
@@ -19090,7 +19090,7 @@ function RM(r, s) {
     !/^[\t ]*(?:[\r\n]|$)|(?:^|[\r\n])[\t ]*$/.test(r.value)
   );
 }
-function FM(r) {
+function F8(r) {
   const s = r.options.fence || "`";
   if (s !== "`" && s !== "~")
     throw new Error(
@@ -19100,17 +19100,17 @@ function FM(r) {
     );
   return s;
 }
-function IM(r, s, l, u) {
-  const w = FM(l),
+function I8(r, s, l, u) {
+  const w = F8(l),
     i = r.value || "",
     p = w === "`" ? "GraveAccent" : "Tilde";
-  if (RM(r, l)) {
+  if (R8(r, l)) {
     const _ = l.enter("codeIndented"),
-      E = l.indentLines(i, TM);
+      E = l.indentLines(i, T8);
     return (_(), E);
   }
   const g = l.createTracker(u),
-    x = w.repeat(Math.max(CM(i, w) + 1, 3)),
+    x = w.repeat(Math.max(C8(i, w) + 1, 3)),
     M = l.enter("codeFenced");
   let m = g.move(x);
   if (r.lang) {
@@ -19148,7 +19148,7 @@ function IM(r, s, l, u) {
     m
   );
 }
-function TM(r, s, l) {
+function T8(r, s, l) {
   return (l ? "" : "    ") + r;
 }
 function Dd(r) {
@@ -19161,7 +19161,7 @@ function Dd(r) {
     );
   return s;
 }
-function DM(r, s, l, u) {
+function D8(r, s, l, u) {
   const w = Dd(l),
     i = w === '"' ? "Quote" : "Apostrophe",
     p = l.enter("definition");
@@ -19201,7 +19201,7 @@ function DM(r, s, l, u) {
     M
   );
 }
-function PM(r) {
+function P8(r) {
   const s = r.options.emphasis || "*";
   if (s !== "*" && s !== "_")
     throw new Error(
@@ -19241,9 +19241,9 @@ function _u(r, s, l) {
           ? { inside: !0, outside: !1 }
           : { inside: !1, outside: !1 };
 }
-$4.peek = NM;
+$4.peek = N8;
 function $4(r, s, l, u) {
-  const w = PM(l),
+  const w = P8(l),
     i = l.enter("emphasis"),
     p = l.createTracker(u),
     g = p.move(w);
@@ -19266,7 +19266,7 @@ function $4(r, s, l, u) {
     g + x + A
   );
 }
-function NM(r, s, l) {
+function N8(r, s, l) {
   return l.options.emphasis || "*";
 }
 function Pd(r, s, l, u) {
@@ -19281,15 +19281,15 @@ function Pd(r, s, l, u) {
     return p(x, _, m);
   }
 }
-const LM = {};
+const L8 = {};
 function Nd(r, s) {
-  const l = LM,
+  const l = L8,
     u = typeof l.includeImageAlt == "boolean" ? l.includeImageAlt : !0,
     w = typeof l.includeHtml == "boolean" ? l.includeHtml : !0;
   return W4(r, u, w);
 }
 function W4(r, s, l) {
-  if (qM(r)) {
+  if (q8(r)) {
     if ("value" in r) return r.type === "html" && !l ? "" : r.value;
     if (s && "alt" in r && r.alt) return r.alt;
     if ("children" in r) return wm(r.children, s, l);
@@ -19302,10 +19302,10 @@ function wm(r, s, l) {
   for (; ++w < r.length; ) u[w] = W4(r[w], s, l);
   return u.join("");
 }
-function qM(r) {
+function q8(r) {
   return !!(r && typeof r == "object");
 }
-function OM(r, s) {
+function O8(r, s) {
   let l = !1;
   return (
     Pd(r, function (u) {
@@ -19315,10 +19315,10 @@ function OM(r, s) {
     !!((!r.depth || r.depth < 3) && Nd(r) && (s.options.setext || l))
   );
 }
-function zM(r, s, l, u) {
+function z8(r, s, l, u) {
   const w = Math.max(Math.min(6, r.depth || 1), 1),
     i = l.createTracker(u);
-  if (OM(r, l)) {
+  if (O8(r, l)) {
     const m = l.enter("headingSetext"),
       _ = l.enter("phrasing"),
       E = l.containerPhrasing(r, {
@@ -19364,14 +19364,14 @@ function zM(r, s, l, u) {
     M
   );
 }
-V4.peek = UM;
+V4.peek = U8;
 function V4(r) {
   return r.value || "";
 }
-function UM() {
+function U8() {
   return "<";
 }
-K4.peek = jM;
+K4.peek = j8;
 function K4(r, s, l, u) {
   const w = Dd(l),
     i = w === '"' ? "Quote" : "Apostrophe",
@@ -19408,10 +19408,10 @@ function K4(r, s, l, u) {
     M
   );
 }
-function jM() {
+function j8() {
   return "!";
 }
-Z4.peek = HM;
+Z4.peek = H8;
 function Z4(r, s, l, u) {
   const w = r.referenceType,
     i = l.enter("imageReference");
@@ -19439,10 +19439,10 @@ function Z4(r, s, l, u) {
     x
   );
 }
-function HM() {
+function H8() {
   return "!";
 }
-G4.peek = $M;
+G4.peek = $8;
 function G4(r, s, l) {
   let u = r.value || "",
     w = "`",
@@ -19467,7 +19467,7 @@ function G4(r, s, l) {
   }
   return w + u + w;
 }
-function $M() {
+function $8() {
   return "`";
 }
 function J4(r, s) {
@@ -19484,7 +19484,7 @@ function J4(r, s) {
     !/[\0- <>\u007F]/.test(r.url)
   );
 }
-X4.peek = WM;
+X4.peek = W8;
 function X4(r, s, l, u) {
   const w = Dd(l),
     i = w === '"' ? "Quote" : "Apostrophe",
@@ -19537,10 +19537,10 @@ function X4(r, s, l, u) {
     M
   );
 }
-function WM(r, s, l) {
+function W8(r, s, l) {
   return J4(r, l) ? "<" : "[";
 }
-Y4.peek = VM;
+Y4.peek = V8;
 function Y4(r, s, l, u) {
   const w = r.referenceType,
     i = l.enter("linkReference");
@@ -19568,7 +19568,7 @@ function Y4(r, s, l, u) {
     x
   );
 }
-function VM() {
+function V8() {
   return "[";
 }
 function Ld(r) {
@@ -19581,7 +19581,7 @@ function Ld(r) {
     );
   return s;
 }
-function KM(r) {
+function K8(r) {
   const s = Ld(r),
     l = r.options.bulletOther;
   if (!l) return s === "*" ? "-" : "*";
@@ -19601,7 +19601,7 @@ function KM(r) {
     );
   return l;
 }
-function ZM(r) {
+function Z8(r) {
   const s = r.options.bulletOrdered || ".";
   if (s !== "." && s !== ")")
     throw new Error(
@@ -19621,11 +19621,11 @@ function Q4(r) {
     );
   return s;
 }
-function GM(r, s, l, u) {
+function G8(r, s, l, u) {
   const w = l.enter("list"),
     i = l.bulletCurrent;
-  let p = r.ordered ? ZM(l) : Ld(l);
-  const g = r.ordered ? (p === "." ? ")" : ".") : KM(l);
+  let p = r.ordered ? Z8(l) : Ld(l);
+  const g = r.ordered ? (p === "." ? ")" : ".") : K8(l);
   let x = s && l.bulletLastUsed ? p === l.bulletLastUsed : !1;
   if (!r.ordered) {
     const m = r.children ? r.children[0] : void 0;
@@ -19663,7 +19663,7 @@ function GM(r, s, l, u) {
   const M = l.containerFlow(r, u);
   return ((l.bulletLastUsed = p), (l.bulletCurrent = i), w(), M);
 }
-function JM(r) {
+function J8(r) {
   const s = r.options.listItemIndent || "one";
   if (s !== "tab" && s !== "one" && s !== "mixed")
     throw new Error(
@@ -19673,8 +19673,8 @@ function JM(r) {
     );
   return s;
 }
-function XM(r, s, l, u) {
-  const w = JM(l);
+function X8(r, s, l, u) {
+  const w = J8(l);
   let i = l.bulletCurrent || Ld(l);
   s &&
     s.type === "list" &&
@@ -19698,13 +19698,13 @@ function XM(r, s, l, u) {
       : (A ? i : i + " ".repeat(p - i.length)) + _;
   }
 }
-function YM(r, s, l, u) {
+function Y8(r, s, l, u) {
   const w = l.enter("paragraph"),
     i = l.enter("phrasing"),
     p = l.containerPhrasing(r, u);
   return (i(), w(), p);
 }
-const QM = Du([
+const Q8 = Du([
   "break",
   "delete",
   "emphasis",
@@ -19725,7 +19725,7 @@ const QM = Du([
 function e7(r, s, l, u) {
   return (
     r.children.some(function (p) {
-      return QM(p);
+      return Q8(p);
     })
       ? l.containerPhrasing
       : l.containerFlow
@@ -19787,22 +19787,22 @@ function a7(r, s, l) {
   return l.options.ruleSpaces ? u.slice(0, -1) : u;
 }
 const tw = {
-    blockquote: EM,
+    blockquote: E8,
     break: ym,
-    code: IM,
-    definition: DM,
+    code: I8,
+    definition: D8,
     emphasis: $4,
     hardBreak: ym,
-    heading: zM,
+    heading: z8,
     html: V4,
     image: K4,
     imageReference: Z4,
     inlineCode: G4,
     link: X4,
     linkReference: Y4,
-    list: GM,
-    listItem: XM,
-    paragraph: YM,
+    list: G8,
+    listItem: X8,
+    paragraph: Y8,
     root: e7,
     strong: ew,
     text: n7,
@@ -19931,7 +19931,7 @@ function v7(r) {
     return (D(), I(), z);
   }
   function M(A, C) {
-    return SM(A, { align: C, alignDelimiters: u, padding: l, stringLength: w });
+    return S8(A, { align: C, alignDelimiters: u, padding: l, stringLength: w });
   }
   function m(A, C, F) {
     const P = A.children;
@@ -20017,10 +20017,10 @@ function w7(r, s, l, u) {
   }
 }
 function b7() {
-  return [K8(), pM(), yM(), l7(), m7()];
+  return [KM(), p8(), y8(), l7(), m7()];
 }
 function x7(r) {
-  return { extensions: [Z8(), vM(r), wM(), v7(r), g7()] };
+  return { extensions: [ZM(), v8(r), w8(), v7(r), g7()] };
 }
 function Xr(r, s, l, u) {
   const w = r.length;
@@ -20523,7 +20523,7 @@ function q7(r, s, l) {
         : (r.consume(A), x);
   }
   function M(A) {
-    return A === 64 ? (r.consume(A), m) : F8(A) ? (r.consume(A), M) : l(A);
+    return A === 64 ? (r.consume(A), m) : FM(A) ? (r.consume(A), M) : l(A);
   }
   function m(A) {
     return Ar(A) ? _(A) : l(A);
@@ -20635,7 +20635,7 @@ function H7(r, s, l) {
     );
   }
   function w(i) {
-    return T8(i)
+    return TM(i)
       ? (r.enter("characterEscapeValue"),
         r.consume(i),
         r.exit("characterEscapeValue"),
@@ -20675,7 +20675,7 @@ function $7(r, s, l) {
         r.exit("characterReferenceMarkerHexadecimal"),
         r.enter("characterReferenceValue"),
         (i = 6),
-        (p = I8),
+        (p = IM),
         m)
       : (r.enter("characterReferenceValue"), (i = 7), (p = yd), m(_));
   }
@@ -28056,7 +28056,7 @@ const ig = ({ txt: r, role: s }) => {
     return it.jsxs("div", {
       className: "text-2xl",
       children: [
-        it.jsx(R8, {
+        it.jsx(RM, {
           children:
             s === "user"
               ? it.jsx("div", { className: "break-all", children: x })
@@ -28113,7 +28113,7 @@ const ig = ({ txt: r, role: s }) => {
         w &&
           it.jsx("div", {
             className: `
-            absolute left-0 mt-1 w-max
+            relative left-0 mt-1 w-max
             min-w-full
             rounded-xl
             bg-black
@@ -28432,8 +28432,8 @@ const ig = ({ txt: r, role: s }) => {
       }, [z, Z, ne, r]),
       it.jsxs("div", {
         className: `
-      fixed top-36 right-6 z-[2147483647]
-      w-[95%] max-w-[95vw]
+      w-[99%] max-w-[99vw]
+      mt-4
       rounded-3xl
       bg-black/95
       border border-white/15
@@ -28442,7 +28442,7 @@ const ig = ({ txt: r, role: s }) => {
       overflow-hidden
       backdrop-blur-xl
       flex flex-col
-      max-h-[70vh]
+      max-h-[93vh]
       transition-transform transition-opacity duration-200
       ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
     `,
@@ -28499,21 +28499,6 @@ const ig = ({ txt: r, role: s }) => {
                         "fa-regular fa-pen-to-square text-xl mr-1 text-white",
                     }),
                   }),
-                  it.jsx("button", {
-                    type: "button",
-                    style: { fontFamily: "'Playfair Display', Georgia, serif" },
-                    className: `
-                h-14 w-14 flex items-center justify-center
-                rounded-full
-                hover:bg-gray-200 hover:text-black
-                transition
-                text-white
-                `,
-                    onClick: s,
-                    children: it.jsx("i", {
-                      className: "fas fa-chevron-down text-xl text-white",
-                    }),
-                  }),
                 ],
               }),
             ],
@@ -28543,7 +28528,7 @@ const ig = ({ txt: r, role: s }) => {
                       "div",
                       {
                         className:
-                          "max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto bg-gray-400 border border-white/10 text-gray-100 text-4xl",
+                          "max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto border border-white/10 bg-nosferatu-300 text-black text-3xl",
                         style: { fontFamily: "inherit", fontStyle: "normal" },
                         children: it.jsx(ig, { role: "assistant", txt: re }),
                       },
@@ -28553,7 +28538,7 @@ const ig = ({ txt: r, role: s }) => {
                       "div",
                       {
                         className:
-                          "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 ml-auto bg-white text-black text-4xl",
+                          "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 ml-auto bg-cullen-300 text-black text-3xl",
                         style: { fontFamily: "inherit", fontStyle: "normal" },
                         children: re,
                       },
@@ -28563,7 +28548,7 @@ const ig = ({ txt: r, role: s }) => {
               Z &&
                 it.jsx("div", {
                   className:
-                    "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto bg-white border border-white/10 text-white/80 text-4xl",
+                    "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto border border-white/50 bg-nosferatu-300 text-black text-3xl",
                   children: it.jsx(ig, {
                     role: "assistant",
                     txt: ne || "Thinking...",
@@ -61895,8 +61880,7 @@ function VB() {
           " ",
           it.jsx("div", {
             className: `
-    fixed top-12 right-6 z-[2147483647]
-    w-[420px] max-w-[95vw]
+    w-[420px] max-w-[99vw]
     rounded-3xl
     bg-black/95
     border border-white/10
@@ -61905,7 +61889,7 @@ function VB() {
     overflow-hidden
     backdrop-blur-xl
     flex flex-col
-    max-h-[70vh]
+    max-h-[99vh]
     transition-transform transition-opacity duration-200
     ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `,
@@ -61915,7 +61899,7 @@ function VB() {
               children: it.jsx("div", {
                 className: "text-xl text-white/70",
                 children: M
-                  ? `Signed in as ${u || "unknown"}`
+                  ? `Signed in as: ${u || "unknown"}`
                   : it.jsxs("form", {
                       onSubmit: ne,
                       className: "px-5 pt-4 pb-5 space-y-4 text-xl",

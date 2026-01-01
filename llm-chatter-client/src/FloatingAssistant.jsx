@@ -199,8 +199,7 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed top-12 right-6 z-[2147483647]
-    w-[420px] max-w-[95vw]
+    w-[420px] max-w-[99vw]
     rounded-3xl
     bg-black/95
     border border-white/10
@@ -209,7 +208,7 @@ function FloatingAssistant() {
     overflow-hidden
     backdrop-blur-xl
     flex flex-col
-    max-h-[70vh]
+    max-h-[99vh]
     transition-transform transition-opacity duration-200
     ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `}
@@ -217,7 +216,7 @@ function FloatingAssistant() {
           <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10">
             <div className="text-xl text-white/70">
               {checkedIn ? (
-                `Signed in as ${serverUsername || "unknown"}`
+                `Signed in as: ${serverUsername || "unknown"}`
               ) : (
                 <form
                   onSubmit={clientCheckIn}
