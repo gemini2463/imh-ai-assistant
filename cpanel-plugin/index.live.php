@@ -19,11 +19,22 @@ print $cpanel->header('IMH AI Assistant', 'IMH AI Assistant');
 
 <div id="ai-assistant-block">
 
-<p>Debug info:</p>
-<ul>
-<li>REMOTE_USER: <?php echo htmlspecialchars(getenv('REMOTE_USER') ?: ''); ?></li>
-<li>CPANEL_SECURITY_TOKEN: <?php echo htmlspecialchars(getenv('CPANEL_SECURITY_TOKEN') ?: ''); ?></li>
-</ul>
+<?php
+$response = $cpanel->uapi(
+    'Variables',
+    'get_session_information'
+);
+
+// Handle the response
+if ($response['cpanelresult']['result']['status']) {
+    $data = $response['cpanelresult']['result']['data'];
+    print json_encode($data);
+}
+else {
+    // Report errors:
+    print json_encode($response['cpanelresult']['result']['errors']);
+}
+?>
 
 </div>
 
@@ -45,3 +56,4 @@ print $cpanel->header('IMH AI Assistant', 'IMH AI Assistant');
 
 <?php
 print $cpanel->footer();
+$cpanel->end();
