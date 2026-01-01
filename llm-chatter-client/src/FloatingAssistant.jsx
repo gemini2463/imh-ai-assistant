@@ -199,6 +199,7 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
+    fixed top-6 right-6 z-[2147483647]
     w-[420px] max-w-[99vw]
     rounded-3xl
     bg-black/95

@@ -590,6 +590,18 @@ body {
 .left-0 {
   left: 0;
 }
+.right-2 {
+  right: 0.5rem;
+}
+.right-6 {
+  right: 1.5rem;
+}
+.top-12 {
+  top: 3rem;
+}
+.top-6 {
+  top: 1.5rem;
+}
 .z-\[2147483647\] {
   z-index: 2147483647;
 }
@@ -665,8 +677,8 @@ body {
 .w-\[420px\] {
   width: 420px;
 }
-.w-\[99\%\] {
-  width: 99%;
+.w-\[90\%\] {
+  width: 90%;
 }
 .w-full {
   width: 100%;
@@ -680,6 +692,9 @@ body {
 }
 .max-w-\[90\%\] {
   max-width: 90%;
+}
+.max-w-\[90vw\] {
+  max-width: 90vw;
 }
 .max-w-\[99vw\] {
   max-width: 99vw;

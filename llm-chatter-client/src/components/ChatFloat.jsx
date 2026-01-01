@@ -484,7 +484,8 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      w-[99%] max-w-[99vw]
+      fixed top-12 right-2 z-[2147483647]
+      w-[90%] max-w-[90vw]
       mt-4
       rounded-3xl
       bg-black/95
