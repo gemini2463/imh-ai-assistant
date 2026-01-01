@@ -52,7 +52,7 @@ function FloatingAssistant() {
   }, [sessionHash]);
 
   // You can hardcode model/settings for the floating assistant:
-  const [modelName] = useState("gpt-5.1"); // or from a config
+  const [modelName] = useState("gpt-5.2"); // or from a config
   const [reasoningPick, setReasoningPick] = useState("none");
   const [verbosityPick, setVerbosityPick] = useState("medium");
   const [streamingEnabled, setStreamingEnabled] = useState(true);

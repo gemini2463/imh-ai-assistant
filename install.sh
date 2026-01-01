@@ -221,7 +221,6 @@ install_cpanel() {
     local APPDIR="/usr/local/cpanel/base/3rdparty/$SCRIPT_NAME"
     local APPCONF_SRC="$APPDIR/$SCRIPT_NAME.conf"
     local REPO_SUBDIR="cpanel-plugin"
-    local AJAX_FILE="ajax_${SCRIPT_NAME}.live.php"
 
     create_directory "/var/cpanel/apps"
     create_directory "$APPDIR"
@@ -233,9 +232,6 @@ install_cpanel() {
 
     download_file "$BASE_URL/$REPO_SUBDIR/index.live.php" "$TEMP_DIR/index.live.php" \
         || error_exit "Failed to get index.live.php"
-
-    download_file "$BASE_URL/$REPO_SUBDIR/$AJAX_FILE" "$TEMP_DIR/$AJAX_FILE" \
-        || error_exit "Failed to get $AJAX_FILE"
 
     download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.conf" "$TEMP_DIR/$SCRIPT_NAME.conf" \
         || error_exit "Failed to get $SCRIPT_NAME.conf"

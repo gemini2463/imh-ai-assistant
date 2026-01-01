@@ -2,7 +2,7 @@ const runtimeShellPath = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "";
 
 const Config = {
   floatingConfig: {
-    serverURL: "http://localhost:8080",
+    serverURL: "https://ai.rossu.dev",
     chatType: "OpenAI",
     model: "gpt-5.2",
     systemMessage:
@@ -11,142 +11,23 @@ const Config = {
       os: {
         name: "AlmaLinux",
         version: "8.10",
-        selinux: "disabled",
-        kernel: "4.18.0",
-        filesystem: {
-          root: "ploop-backed ext4",
-          quotas: ["user", "group"],
-        },
       },
       hardware: {
         cpu_cores: 4,
         memory: {
           total: "8.0Gi",
-          used: "1.1Gi",
-          free: "3.7Gi",
-          buff_cache: "3.2Gi",
-          available: "6.8Gi",
-          swap_total: "0B",
-        },
-        vm_tuning: {
-          "vm.swappiness": 0,
         },
       },
       disk: {
         filesystems: [
           {
-            device: "/dev/ploop48183p1",
             mountpoint: "/",
-            size: "160G",
-            used: "57G",
-            available: "96G",
-            use_percent: "38%",
+            size: "150G",
           },
         ],
       },
       control_panel: {
-        name: "CWP (Control Web Panel)",
-        paths: {
-          cwp_nginx_conf: "/usr/local/cwpsrv/conf",
-          cwp_admin_root: "/usr/local/cwpsrv/htdocs/admin/admin",
-        },
-      },
-      web_stack: {
-        frontend: {
-          server: "nginx",
-          config_dirs: [
-            "/etc/nginx",
-            "/etc/nginx/conf.d",
-            "/etc/nginx/conf.d/vhosts",
-          ],
-          role: "public HTTP/HTTPS entrypoint, reverse proxy",
-        },
-        backend: {
-          server: "apache_httpd",
-          install_root: "/usr/local/apache",
-          config_main: "/usr/local/apache/conf/httpd.conf",
-          config_vhosts: "/usr/local/apache/conf.d",
-          role: "backend web server (PHP apps, vhosts)",
-        },
-        cwp_internal: {
-          server: "nginx (cwpsrv)",
-          config_dir: "/usr/local/cwpsrv/conf",
-          role: "CWP panel and related services",
-        },
-      },
-      php: {
-        system_cli: "PHP 8.1",
-        alt_fpm_versions: ["7.4", "8.0", "8.1", "8.2", "8.3"],
-        alt_fpm_root: "/opt/alt",
-        cwp_php_fpm_services: ["cwp-phpfpm", "cwpsrv-phpfpm"],
-      },
-      databases_and_caches: {
-        mariadb: {
-          version_major: "10.6",
-          service_names: ["mariadb", "mysqld"],
-          bind: "default MySQL port, IPv4+IPv6",
-        },
-        redis: {
-          bind: "127.0.0.1",
-        },
-        memcached: {
-          bind: "127.0.0.1",
-        },
-      },
-      mail_stack: {
-        mta: {
-          name: "postfix",
-          logs: ["/var/log/maillog", "/var/log/maillog-*"],
-          direction_split: "not separated; same logs for inbound+outbound",
-        },
-        imap_pop3: {
-          name: "dovecot",
-          logs: [
-            "/var/log/dovecot.log",
-            "/var/log/dovecot-info.log",
-            "/var/log/dovecot-debug.log",
-          ],
-        },
-        dkim: {
-          name: "opendkim",
-          bind: "localhost",
-        },
-        policy_daemon: "cbpolicyd",
-        ftp: "pure-ftpd",
-      },
-      dns: {
-        server: "named (BIND)",
-        ports: ["53/tcp", "53/udp"],
-        bind_addresses: ["localhost", "main_public_ip"],
-      },
-      logging: {
-        system: ["/var/log/messages", "/var/log/secure"],
-        web: {
-          nginx: "/var/log/nginx",
-          apache: "/usr/local/apache/logs",
-        },
-        mail: {
-          postfix: "/var/log/maillog*",
-          dovecot: "/var/log/dovecot*.log",
-        },
-        security: ["/var/log/lfd.log*", "/var/log/fail2ban.log*"],
-        ftp: "/var/log/pureftpd.log*",
-        panel: "/var/log/cwp",
-      },
-      security_and_monitoring: {
-        firewall: "csf",
-        lfd: "enabled",
-        fail2ban: "installed (used for some jails)",
-        monitoring: "monit",
-      },
-      ssh: {
-        service: "sshd",
-        auth: {
-          password_authentication: false,
-          pubkey_authentication: true,
-          permit_root_login: true,
-        },
-        port: "non-default (do not hardcode; detect at runtime)",
+        name: "cPanel & WHM",
       },
     },
     temperature: "0.8",
