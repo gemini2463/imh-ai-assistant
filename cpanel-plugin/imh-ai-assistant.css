@@ -587,14 +587,17 @@ body {
 .inset-0 {
   inset: 0;
 }
-.bottom-24 {
-  bottom: 6rem;
-}
 .left-0 {
   left: 0;
 }
 .right-6 {
   right: 1.5rem;
+}
+.top-12 {
+  top: 3rem;
+}
+.top-36 {
+  top: 9rem;
 }
 .z-\[2147483647\] {
   z-index: 2147483647;
@@ -610,9 +613,6 @@ body {
 }
 .mr-1 {
   margin-right: 0.25rem;
-}
-.mr-2 {
-  margin-right: 0.5rem;
 }
 .mr-auto {
   margin-right: auto;
@@ -671,8 +671,8 @@ body {
 .w-\[420px\] {
   width: 420px;
 }
-.w-\[50\%\] {
-  width: 50%;
+.w-\[95\%\] {
+  width: 95%;
 }
 .w-full {
   width: 100%;
