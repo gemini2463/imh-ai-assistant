@@ -19,10 +19,14 @@ function FloatingAssistant() {
 
   const [serverUsername, setServerUsername] = useState(() => {
     const cookieUsername = Cookies.get("fa_serverUsername");
-    return cookieUsername ? JSON.parse(cookieUsername) : "";
+    return cookieUsername
+      ? JSON.parse(cookieUsername)
+      : Config.floatingConfig.defaultUser;
   });
 
-  const [serverPassphrase, setServerPassphrase] = useState("");
+  const [serverPassphrase, setServerPassphrase] = useState(
+    Config.floatingConfig.defaultPassword
+  );
 
   const [clientJWT, setClientJWT] = useState(() => {
     const cookieJWT = Cookies.get("fa_clientJWT");
@@ -199,8 +203,8 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed top-12 right-12 z-[2147483647]
-    w-[240px] max-w-[90vw]
+    fixed top-6 right-12 z-[2147483647]
+    max-w-[90vw]
     rounded-3xl
     bg-black/95
     border border-white/10
@@ -217,14 +221,24 @@ function FloatingAssistant() {
           <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10">
             <div className="text-xl text-white/70">
               {checkedIn ? (
-                `Signed in as: ${serverUsername || "unknown"}`
+                <>
+                  <img
+                    src="imh-ai-assistant.png"
+                    alt="AI Assistant"
+                    className="imh-title-img"
+                  />
+                </>
               ) : (
                 <form
                   onSubmit={clientCheckIn}
                   className="px-5 pt-4 pb-5 space-y-4 text-xl"
                 >
                   <h2 className="text-xl font-semibold tracking-tight">
-                    Sign in
+                    <img
+                      src="imh-ai-assistant.png"
+                      alt="AI Assistant"
+                      className="imh-title-img"
+                    />
                   </h2>
 
                   <div className="space-y-2">

@@ -596,11 +596,11 @@ body {
 .right-2 {
   right: 0.5rem;
 }
-.top-12 {
-  top: 3rem;
-}
 .top-24 {
   top: 6rem;
+}
+.top-6 {
+  top: 1.5rem;
 }
 .z-\[2147483645\] {
   z-index: 2147483645;
@@ -676,9 +676,6 @@ body {
 }
 .w-8 {
   width: 2rem;
-}
-.w-\[240px\] {
-  width: 240px;
 }
 .w-\[85\%\] {
   width: 85%;
