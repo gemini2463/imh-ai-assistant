@@ -231,22 +231,22 @@ install_cpanel() {
     print_message "$BRIGHTBLUE" "Downloading files..."
     echo ""
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/index.live.php" "$TEMP_DIR/index.live.php" \
+    download_file "$BASE_URL/$REPO_SUBDIR/index.live.php" "$TEMP_DIR/index.live.php" \
         || error_exit "Failed to get index.live.php"
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$AJAX_FILE" "$TEMP_DIR/$AJAX_FILE" \
+    download_file "$BASE_URL/$REPO_SUBDIR/$AJAX_FILE" "$TEMP_DIR/$AJAX_FILE" \
         || error_exit "Failed to get $AJAX_FILE"
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.conf" "$TEMP_DIR/$SCRIPT_NAME.conf" \
+    download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.conf" "$TEMP_DIR/$SCRIPT_NAME.conf" \
         || error_exit "Failed to get $SCRIPT_NAME.conf"
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.js" "$TEMP_DIR/$SCRIPT_NAME.js" \
+    download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.js" "$TEMP_DIR/$SCRIPT_NAME.js" \
         || error_exit "Failed to get $SCRIPT_NAME.js"
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.css" "$TEMP_DIR/$SCRIPT_NAME.css" \
+    download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.css" "$TEMP_DIR/$SCRIPT_NAME.css" \
         || error_exit "Failed to get $SCRIPT_NAME.css"
 
-    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.png" "$TEMP_DIR/$SCRIPT_NAME.png" \
+    download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.png" "$TEMP_DIR/$SCRIPT_NAME.png" \
         || error_exit "Failed to get $SCRIPT_NAME.png"
 
 
