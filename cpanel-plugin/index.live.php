@@ -17,7 +17,15 @@ print $cpanel->header('IMH AI Assistant', 'IMH AI Assistant');
 ?>
 <link rel="stylesheet" href="imh-ai-assistant.css">
 
-<div id="ai-assistant-block"></div>
+<div id="ai-assistant-block">
+
+<p>Debug info:</p>
+<ul>
+<li>REMOTE_USER: <?php echo htmlspecialchars(getenv('REMOTE_USER') ?: ''); ?></li>
+<li>CPANEL_SECURITY_TOKEN: <?php echo htmlspecialchars(getenv('CPANEL_SECURITY_TOKEN') ?: ''); ?></li>
+</ul>
+
+</div>
 
 <script>
   // cPanel provides CPANEL.security_token in-page for authenticated sessions.
