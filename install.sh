@@ -252,9 +252,6 @@ install_cpanel() {
     copy_if_changed "$TEMP_DIR/index.live.php" "$APPDIR/index.live.php" \
         || error_exit "Failed to copy index.live.php"
 
-    copy_if_changed "$TEMP_DIR/$AJAX_FILE" "$APPDIR/$AJAX_FILE" \
-        || error_exit "Failed to copy $AJAX_FILE"
-
     copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.conf" "$APPDIR/$SCRIPT_NAME.conf" \
         || error_exit "Failed to copy $SCRIPT_NAME.conf"
 
@@ -268,7 +265,6 @@ install_cpanel() {
         || error_exit "Failed to copy $SCRIPT_NAME.png"
 
     # perms
-    chmod 0755 "$APPDIR/index.live.php" "$APPDIR/$AJAX_FILE" 2>/dev/null || true
     chmod 0644 "$APPDIR/$SCRIPT_NAME.conf" "$APPDIR/$SCRIPT_NAME.js" "$APPDIR/$SCRIPT_NAME.css" "$APPDIR/$SCRIPT_NAME.png" 2>/dev/null || true
 
     chown -R root:wheel "$APPDIR" 2>/dev/null || chown -R root:root "$APPDIR" || true
