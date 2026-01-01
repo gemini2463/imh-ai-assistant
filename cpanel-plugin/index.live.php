@@ -43,11 +43,13 @@ $session_id = $matches[1] ?? '';
 
 
 
+$rawInput = file_get_contents('php://input');
 
+if ($rawInput !== '') {
 
 session_start();
 
-$rawInput = file_get_contents('php://input');
+
 $data = json_decode($rawInput, true);
 
 function json_response(array $data, int $statusCode = 200): void {
@@ -233,7 +235,7 @@ json_response([
     ],
 ]);
 
-
+};
 
 
 
