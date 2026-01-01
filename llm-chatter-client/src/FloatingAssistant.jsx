@@ -199,8 +199,8 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed top-6 right-6 z-[2147483647]
-    w-[420px] max-w-[99vw]
+    fixed top-12 right-12 z-[2147483647]
+    w-[240px] max-w-[90vw]
     rounded-3xl
     bg-black/95
     border border-white/10
@@ -209,7 +209,7 @@ function FloatingAssistant() {
     overflow-hidden
     backdrop-blur-xl
     flex flex-col
-    max-h-[99vh]
+    max-h-[95vh]
     transition-transform transition-opacity duration-200
     ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `}

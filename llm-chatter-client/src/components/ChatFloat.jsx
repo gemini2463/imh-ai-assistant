@@ -484,8 +484,8 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      fixed top-12 right-2 z-[2147483647]
-      w-[90%] max-w-[90vw]
+      fixed top-24 right-2 z-[2147483645]
+      w-[85%] max-w-[85vw]
       mt-4
       rounded-3xl
       bg-black/95
@@ -495,7 +495,7 @@ const ChatFloat = ({
       overflow-hidden
       backdrop-blur-xl
       flex flex-col
-      max-h-[93vh]
+      max-h-[90vh]
       transition-transform transition-opacity duration-200
       ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
     `}
