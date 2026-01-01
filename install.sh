@@ -213,6 +213,83 @@ create_directory() {
     fi
 }
 
+# Function to install for cPanel
+install_cpanel() {
+    print_message "$YELLOW" "Installing for cPanel (end-user)..."
+    echo ""
+
+    local APPDIR="/usr/local/cpanel/base/3rdparty/$SCRIPT_NAME"
+    local APPCONF_SRC="$APPDIR/$SCRIPT_NAME.conf"
+    local REPO_SUBDIR="cpanel-plugin"
+    local AJAX_FILE="ajax_${SCRIPT_NAME}.live.php"
+
+    create_directory "/var/cpanel/apps"
+    create_directory "$APPDIR"
+
+    TEMP_DIR=$(mktemp -d) || error_exit "Failed to create temporary directory"
+
+    print_message "$BRIGHTBLUE" "Downloading files..."
+    echo ""
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/index.live.php" "$TEMP_DIR/index.live.php" \
+        || error_exit "Failed to get index.live.php"
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$AJAX_FILE" "$TEMP_DIR/$AJAX_FILE" \
+        || error_exit "Failed to get $AJAX_FILE"
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.conf" "$TEMP_DIR/$SCRIPT_NAME.conf" \
+        || error_exit "Failed to get $SCRIPT_NAME.conf"
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.js" "$TEMP_DIR/$SCRIPT_NAME.js" \
+        || error_exit "Failed to get $SCRIPT_NAME.js"
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.css" "$TEMP_DIR/$SCRIPT_NAME.css" \
+        || error_exit "Failed to get $SCRIPT_NAME.css"
+
+    download_file_with_checksum "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.png" "$TEMP_DIR/$SCRIPT_NAME.png" \
+        || error_exit "Failed to get $SCRIPT_NAME.png"
+
+
+    print_message "$BRIGHTBLUE" "Installing files..."
+    echo ""
+
+    copy_if_changed "$TEMP_DIR/index.live.php" "$APPDIR/index.live.php" \
+        || error_exit "Failed to copy index.live.php"
+
+    copy_if_changed "$TEMP_DIR/$AJAX_FILE" "$APPDIR/$AJAX_FILE" \
+        || error_exit "Failed to copy $AJAX_FILE"
+
+    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.conf" "$APPDIR/$SCRIPT_NAME.conf" \
+        || error_exit "Failed to copy $SCRIPT_NAME.conf"
+
+    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.js" "$APPDIR/$SCRIPT_NAME.js" \
+        || error_exit "Failed to copy $SCRIPT_NAME.js"
+
+    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.css" "$APPDIR/$SCRIPT_NAME.css" \
+        || error_exit "Failed to copy $SCRIPT_NAME.css"
+
+    copy_if_changed "$TEMP_DIR/$SCRIPT_NAME.png" "$APPDIR/$SCRIPT_NAME.png" \
+        || error_exit "Failed to copy $SCRIPT_NAME.png"
+
+    # perms
+    chmod 0755 "$APPDIR/index.live.php" "$APPDIR/$AJAX_FILE" 2>/dev/null || true
+    chmod 0644 "$APPDIR/$SCRIPT_NAME.conf" "$APPDIR/$SCRIPT_NAME.js" "$APPDIR/$SCRIPT_NAME.css" "$APPDIR/$SCRIPT_NAME.png" 2>/dev/null || true
+
+    chown -R root:wheel "$APPDIR" 2>/dev/null || chown -R root:root "$APPDIR" || true
+
+    print_message "$BRIGHTBLUE" "Registering plugin..."
+    echo ""
+
+    if [[ ! -x "/usr/local/cpanel/bin/register_appconfig" ]]; then
+        error_exit "register_appconfig not found"
+    fi
+
+    # Re-register to apply updates cleanly
+    /usr/local/cpanel/bin/unregister_appconfig "$SCRIPT_NAME" >/dev/null 2>&1 || true
+    /usr/local/cpanel/bin/register_appconfig "$APPCONF_SRC" \
+        || error_exit "Failed to register appconfig ($APPCONF_SRC)"
+}
+
 # Function to install for CWP
 install_cwp() {
     print_message "$YELLOW" "Installing for CWP..."
@@ -298,6 +375,9 @@ main() {
     local panel=$(detect_control_panel)
 
     case "$panel" in
+    "cpanel")
+        install_cpanel
+        ;;
     "cwp")
         install_cwp
         ;;

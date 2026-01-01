@@ -1,3 +1,5 @@
+const runtimeShellPath = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "";
+
 const Config = {
   floatingConfig: {
     serverURL: "http://localhost:8080",
@@ -170,7 +172,8 @@ const Config = {
     ],
   },
 
-  shellScriptPath: "loader_ajax.php?ajax=imh-ai-assistant",
+  //shellScriptPath: "loader_ajax.php?ajax=imh-ai-assistant",
+  shellScriptPath: runtimeShellPath,
 };
 
 export default Config;
