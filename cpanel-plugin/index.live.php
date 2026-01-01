@@ -2,8 +2,14 @@
 //     /usr/local/cpanel/base/3rdparty/imh-ai-assistant/index.live.php
 
 declare(strict_types=1);
+
+error_reporting(E_ALL);
+@ini_set('display_errors', '0'); // important for JSON endpoints
+@ini_set('log_errors', '1');
+@ini_set('error_log', '/usr/local/cpanel/base/3rdparty/imh-ai-assistant/error.log');
 error_log("IMH DEBUG REMOTE_USER=" . (getenv('REMOTE_USER') ?: ''));
 error_log("IMH DEBUG TOKEN=" . (getenv('CPANEL_SECURITY_TOKEN') ?: ''));
+
 require_once '/usr/local/cpanel/php/cpanel.php';
 $cpanel = new CPANEL();
 
