@@ -2,7 +2,8 @@
 //     /usr/local/cpanel/base/3rdparty/imh-ai-assistant/index.live.php
 
 declare(strict_types=1);
-
+error_log("IMH DEBUG REMOTE_USER=" . (getenv('REMOTE_USER') ?: ''));
+error_log("IMH DEBUG TOKEN=" . (getenv('CPANEL_SECURITY_TOKEN') ?: ''));
 require_once '/usr/local/cpanel/php/cpanel.php';
 $cpanel = new CPANEL();
 
