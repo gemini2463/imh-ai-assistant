@@ -38,7 +38,6 @@ const Config = {
     streamingEnabled: true,
     pickedTools: ["shell"],
     quickPrompts: [
-      "Generate personality for server",
       "Check disk space",
       "Security review",
       "Email issues",

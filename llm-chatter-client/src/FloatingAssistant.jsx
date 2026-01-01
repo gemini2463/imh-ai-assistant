@@ -155,7 +155,7 @@ function FloatingAssistant() {
         style={{
           position: "fixed",
           right: "1rem",
-          bottom: "1rem",
+          bottom: "3rem",
           zIndex: 2147483647,
           width: "76px",
           height: "76px",
@@ -199,7 +199,7 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed bottom-24 right-6 z-[2147483647]
+    fixed bottom-72 right-6 z-[2147483647]
     w-[420px] max-w-[95vw]
     rounded-3xl
     bg-black/95

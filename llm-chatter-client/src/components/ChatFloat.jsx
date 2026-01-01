@@ -484,8 +484,8 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      fixed bottom-24 right-6 z-[2147483647]
-      w-[50%] max-w-[95vw]
+      fixed bottom-36 right-6 z-[2147483647]
+      w-[95%] max-w-[95vw]
       rounded-3xl
       bg-black/95
       border border-white/15
@@ -695,7 +695,6 @@ const ChatFloat = ({
                 "
               onClick={() => setInput(label)}
             >
-              <i className="fa-solid fa-lightbulb text-xl mr-2 text-white" />
               <span>{label}</span>
             </button>
           ))}

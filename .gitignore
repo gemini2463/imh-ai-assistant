@@ -3,3 +3,4 @@
 .vscode/*
 *repomix*.*
 .repomixignore
+llm-chatter-client/dist/*

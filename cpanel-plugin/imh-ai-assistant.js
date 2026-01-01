@@ -13220,7 +13220,6 @@ const _8 = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "",
       streamingEnabled: !0,
       pickedTools: ["shell"],
       quickPrompts: [
-        "Generate personality for server",
         "Check disk space",
         "Security review",
         "Email issues",
@@ -28433,8 +28432,8 @@ const ig = ({ txt: r, role: s }) => {
       }, [z, Z, ne, r]),
       tt.jsxs("div", {
         className: `
-      fixed bottom-24 right-6 z-[2147483647]
-      w-[50%] max-w-[95vw]
+      fixed bottom-36 right-6 z-[2147483647]
+      w-[95%] max-w-[95vw]
       rounded-3xl
       bg-black/95
       border border-white/15
@@ -28635,7 +28634,7 @@ const ig = ({ txt: r, role: s }) => {
               tt.jsx("div", {
                 className: "flex flex-wrap gap-4 pt-2",
                 children: vo.floatingConfig.quickPrompts.map((U) =>
-                  tt.jsxs(
+                  tt.jsx(
                     "button",
                     {
                       type: "button",
@@ -28651,13 +28650,7 @@ const ig = ({ txt: r, role: s }) => {
                   transition
                 `,
                       onClick: () => D(U),
-                      children: [
-                        tt.jsx("i", {
-                          className:
-                            "fa-solid fa-lightbulb text-xl mr-2 text-white",
-                        }),
-                        tt.jsx("span", { children: U }),
-                      ],
+                      children: tt.jsx("span", { children: U }),
                     },
                     U
                   )
@@ -61907,7 +61900,7 @@ function VB() {
           style: {
             position: "fixed",
             right: "1rem",
-            bottom: "1rem",
+            bottom: "3rem",
             zIndex: 2147483647,
             width: "76px",
             height: "76px",
@@ -61952,7 +61945,7 @@ function VB() {
             " ",
             tt.jsx("div", {
               className: `
-    fixed bottom-24 right-6 z-[2147483647]
+    fixed bottom-72 right-6 z-[2147483647]
     w-[420px] max-w-[95vw]
     rounded-3xl
     bg-black/95
