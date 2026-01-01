@@ -13,7 +13,7 @@ const DEFAULT_FLOAT_SYSTEM_MESSAGE =
   JSON.stringify(Config.floatingConfig.systemProfile);
 
 function FloatingAssistant() {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   const [serverURL] = useState(SERVER_URL_DEFAULT);
 
@@ -149,7 +149,7 @@ function FloatingAssistant() {
   return createPortal(
     <>
       {/* Floating button */}
-      <button
+      {/*       <button
         type="button"
         onClick={handleToggle}
         style={{
@@ -191,7 +191,7 @@ function FloatingAssistant() {
             className="h-16 w-16 object-contain"
           />
         </span>
-      </button>
+      </button> */}
 
       {/* Popup panel */}
 
@@ -199,7 +199,7 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed bottom-72 right-6 z-[2147483647]
+    fixed top-12 right-6 z-[2147483647]
     w-[420px] max-w-[95vw]
     rounded-3xl
     bg-black/95
@@ -289,7 +289,7 @@ function FloatingAssistant() {
               )}
             </div>
 
-            <div className="flex items-center gap-1">
+            {/*  <div className="flex items-center gap-1">
               <button
                 type="button"
                 className="
@@ -303,7 +303,7 @@ function FloatingAssistant() {
               >
                 <i className="fas fa-chevron-down text-xl" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
         {/* Body: either login form or chat */}

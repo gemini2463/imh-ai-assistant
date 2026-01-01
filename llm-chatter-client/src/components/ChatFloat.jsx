@@ -484,7 +484,7 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      fixed bottom-36 right-6 z-[2147483647]
+      fixed top-36 right-6 z-[2147483647]
       w-[95%] max-w-[95vw]
       rounded-3xl
       bg-black/95
