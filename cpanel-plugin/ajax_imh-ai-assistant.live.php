@@ -9,6 +9,9 @@ error_reporting(E_ALL);
 
 session_start();
 
+$rawInput = file_get_contents('php://input');
+$data = json_decode($rawInput, true);
+
 function json_response(array $data, int $statusCode = 200): void {
     http_response_code($statusCode);
     header('Content-Type: application/json; charset=utf-8');
@@ -20,9 +23,6 @@ $cpuser = getenv('REMOTE_USER') ?: '';
 if ($cpuser === '') {
     json_response(['success' => false, 'error' => 'Access Denied'], 403);
 }
-
-$rawInput = file_get_contents('php://input');
-$data = json_decode($rawInput, true);
 
 if (JSON_ERROR_NONE !== json_last_error()) {
     json_response(['success' => false, 'error' => 'Invalid JSON: ' . json_last_error_msg()], 400);
@@ -147,12 +147,6 @@ if ($tz_name !== false) {
   // fallback: use system-configured timezone
   date_default_timezone_set(@date_default_timezone_get());
 }
-
-// Read raw body
-$rawInput = file_get_contents('php://input');
-
-// Decode JSON as assoc array
-$data = json_decode($rawInput, true);
 
 if (JSON_ERROR_NONE !== json_last_error()) {
     json_response([
