@@ -218,7 +218,7 @@ install_cpanel() {
     print_message "$YELLOW" "Installing for cPanel (end-user)..."
     echo ""
 
-    local APPDIR="/usr/local/cpanel/base/3rdparty/$SCRIPT_NAME"
+    local APPDIR="/usr/local/cpanel/base/frontend/jupiter/$SCRIPT_NAME"
     local APPCONF_SRC="$APPDIR/$SCRIPT_NAME.conf"
     local REPO_SUBDIR="cpanel-plugin"
 
