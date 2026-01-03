@@ -133,6 +133,46 @@ function FloatingAssistant() {
     [serverURL, serverUsername, serverPassphrase, sessionHash, clearAuth]
   );
 
+  // one-time auto-login guard (persisted for 1 day here; adjust as you like)
+  const [autoLoginAttempted, setAutoLoginAttempted] = useState(() => {
+    const v = Cookies.get("fa_autoLoginAttempted");
+    return v ? JSON.parse(v) : false;
+  });
+
+  useEffect(() => {
+    const hasJwtCookie = !!Cookies.get("fa_clientJWT");
+
+    const usingDefaultCreds =
+      serverUsername === Config.floatingConfig.defaultUser &&
+      serverPassphrase === Config.floatingConfig.defaultPassword;
+
+    // Auto-attempt only if:
+    // - not logged in
+    // - no saved JWT cookie
+    // - still on the app-provided defaults
+    // - we haven't already tried once
+    if (
+      !checkedIn &&
+      !hasJwtCookie &&
+      usingDefaultCreds &&
+      !autoLoginAttempted
+    ) {
+      Cookies.set("fa_autoLoginAttempted", JSON.stringify(true), {
+        expires: 1,
+      });
+      setAutoLoginAttempted(true);
+
+      // fire and forget (clientCheckIn already handles error UI + clearAuth)
+      clientCheckIn();
+    }
+  }, [
+    checkedIn,
+    serverUsername,
+    serverPassphrase,
+    autoLoginAttempted,
+    clientCheckIn,
+  ]);
+
   // Optional: if JWT disappears from cookies, clear local auth
   useEffect(() => {
     const cookieJWT = Cookies.get("fa_clientJWT");
@@ -151,55 +191,23 @@ function FloatingAssistant() {
 
   return (
     <>
-      {/* Floating button */}
-      {/*       <button
-        type="button"
-        onClick={handleToggle}
-        style={{
-          position: "fixed",
-          right: "1rem",
-          bottom: "3rem",
-          zIndex: 2147483647,
-          width: "76px",
-          height: "76px",
-        }}
-        className="
-          flex items-center justify-center
-          rounded-2xl
-          bg-black
-          border border-white/20
-          shadow-[0_0_24px_rgba(0,0,0,0.8)]
-          overflow-hidden
-          relative
-          transition
-          duration-200
-          hover:scale-125 hover:border-white/40
-          hover:shadow-[0_0_32px_rgba(255,255,255,0.35)]
-          active:scale-95
-        "
-      >
-        <span
-          className="
-            pointer-events-none
-            absolute inset-0
-            bg-gradient-to-tr from-white/20 via-white/5 to-transparent
-            opacity-40
-            group-hover:opacity-60
-          "
+      {checkedIn ? (
+        <ChatFloat
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          serverURL={serverURL}
+          clientJWT={clientJWT}
+          model={modelName}
+          systemMessage={DEFAULT_FLOAT_SYSTEM_MESSAGE}
+          reasoningPick={reasoningPick}
+          verbosityPick={verbosityPick}
+          streamingEnabled={streamingEnabled}
+          pickedTools={responseTools}
+          serverUsername={serverUsername}
+          checkedIn={checkedIn}
+          logoutUser={logoutUser}
         />
-        <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-black">
-          <img
-            src="imh-ai-assistant.png"
-            alt="AI Assistant"
-            className="h-16 w-16 object-contain"
-          />
-        </span>
-      </button> */}
-
-      {/* Popup panel */}
-
-      <>
-        {/* Header */}{" "}
+      ) : (
         <div
           className={`
     min-w-24
@@ -216,125 +224,81 @@ function FloatingAssistant() {
         >
           <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10">
             <div className="text-xl text-white/70">
-              {checkedIn ? (
-                <>
+              <form
+                onSubmit={clientCheckIn}
+                className="px-5 pt-4 pb-5 space-y-4 text-xl"
+              >
+                <h2 className="text-xl font-semibold tracking-tight">
                   <img
                     src="imh-ai-assistant.png"
                     alt="AI Assistant"
                     className="imh-title-img"
                   />
-                </>
-              ) : (
-                <form
-                  onSubmit={clientCheckIn}
-                  className="px-5 pt-4 pb-5 space-y-4 text-xl"
-                >
-                  <h2 className="text-xl font-semibold tracking-tight">
-                    <img
-                      src="imh-ai-assistant.png"
-                      alt="AI Assistant"
-                      className="imh-title-img"
-                    />
-                  </h2>
+                </h2>
 
-                  <div className="space-y-2">
-                    <label className="block text-xl text-white/60 mb-1">
-                      Username
-                    </label>
-                    <input
-                      type="text"
-                      autoComplete="username"
-                      value={serverUsername}
-                      onChange={(e) => setServerUsername(e.target.value)}
-                      className="
-                    w-full rounded-xl px-3 py-2
-                    bg-white/5 border border-white/20
-                    text-xl text-white
-                    outline-none
-                    focus:border-white/40 focus:ring-1 focus:ring-white/30
-                  "
-                      placeholder="Username"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="block text-xl text-white/60 mb-1">
-                      Passphrase
-                    </label>
-                    <input
-                      type="password"
-                      autoComplete="current-password"
-                      value={serverPassphrase}
-                      onChange={(e) => setServerPassphrase(e.target.value)}
-                      onKeyDown={handleLoginKeyDown}
-                      className="
-                    w-full rounded-xl px-3 py-2
-                    bg-white/5 border border-white/20
-                    text-xl text-white
-                    outline-none
-                    focus:border-white/40 focus:ring-1 focus:ring-white/30
-                  "
-                      placeholder="Passphrase"
-                    />
-                  </div>
-
-                  {signInError && (
-                    <p className="text-xl text-red-400">
-                      Login error. Please check your credentials.
-                    </p>
-                  )}
-
-                  <button
-                    type="submit"
+                <div className="space-y-2">
+                  <label className="block text-xl text-white/60 mb-1">
+                    Username
+                  </label>
+                  <input
+                    type="text"
+                    autoComplete="username"
+                    value={serverUsername}
+                    onChange={(e) => setServerUsername(e.target.value)}
                     className="
+                    w-full rounded-xl px-3 py-2
+                    bg-white/5 border border-white/20
+                    text-xl text-white
+                    outline-none
+                    focus:border-white/40 focus:ring-1 focus:ring-white/30
+                  "
+                    placeholder="Username"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-xl text-white/60 mb-1">
+                    Passphrase
+                  </label>
+                  <input
+                    type="password"
+                    autoComplete="current-password"
+                    value={serverPassphrase}
+                    onChange={(e) => setServerPassphrase(e.target.value)}
+                    onKeyDown={handleLoginKeyDown}
+                    className="
+                    w-full rounded-xl px-3 py-2
+                    bg-white/5 border border-white/20
+                    text-xl text-white
+                    outline-none
+                    focus:border-white/40 focus:ring-1 focus:ring-white/30
+                  "
+                    placeholder="Passphrase"
+                  />
+                </div>
+
+                {signInError && (
+                  <p className="text-xl text-red-400">
+                    Login error. Please check your credentials.
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  className="
                   w-full mt-2
                   rounded-full px-3 py-2
                   bg-white text-black text-xl font-medium
                   hover:bg-white/90 transition
                 "
-                  >
-                    Sign In
-                  </button>
-                </form>
-              )}
+                >
+                  Sign In
+                </button>
+              </form>
             </div>
-
-            {/*  <div className="flex items-center gap-1">
-              <button
-                type="button"
-                className="
-                  h-8 w-8 flex items-center justify-center
-                  rounded-full
-                  hover:bg-white/10
-                  transition
-                  text-white/70
-                "
-                onClick={() => setIsOpen(false)}
-              >
-                <i className="fas fa-chevron-down text-xl" />
-              </button>
-            </div> */}
           </div>
         </div>
-        {/* Body: either login form or chat */}
-        {checkedIn && (
-          <ChatFloat
-            isOpen={isOpen}
-            onClose={() => setIsOpen(false)}
-            serverURL={serverURL}
-            clientJWT={clientJWT}
-            model={modelName}
-            systemMessage={DEFAULT_FLOAT_SYSTEM_MESSAGE}
-            reasoningPick={reasoningPick}
-            verbosityPick={verbosityPick}
-            streamingEnabled={streamingEnabled}
-            pickedTools={responseTools}
-            serverUsername={serverUsername}
-            checkedIn={checkedIn}
-            logoutUser={logoutUser}
-          />
-        )}
-      </>
+      )}
     </>
   );
 }

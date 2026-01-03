@@ -542,7 +542,11 @@ const ChatFloat = ({
               transition
               text-white"
           >
-            <i className="fa-solid fa-pen-to-square text-xl mr-1 text-dracula" />
+            <img
+              src="imh-ai-assistant.png"
+              alt="AI Assistant"
+              className="imh-title-img"
+            />
           </button>
           {/*           <button
             type="button"
