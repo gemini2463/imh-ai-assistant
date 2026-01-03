@@ -484,8 +484,7 @@ const ChatFloat = ({
   return (
     <div
       className={`
-      fixed top-24 right-2 z-[2147483645]
-      w-[85%] max-w-[85vw]
+      flex flex-col
       mt-4
       rounded-3xl
       bg-black/95
@@ -543,7 +542,7 @@ const ChatFloat = ({
               transition
               text-white"
           >
-            <i className="fa-regular fa-pen-to-square text-xl mr-1 text-white" />
+            <i className="fa-solid fa-pen-to-square text-xl mr-1 text-dracula" />
           </button>
           {/*           <button
             type="button"
@@ -632,7 +631,7 @@ const ChatFloat = ({
             transition
           "
         >
-          <button
+          {/*           <button
             type="button"
             className="
               text-white hover:text-white/60
@@ -644,7 +643,7 @@ const ChatFloat = ({
             "
           >
             <i className="fas fa-paperclip text-2xl text-white" />
-          </button>
+          </button> */}
 
           <input
             type="text"

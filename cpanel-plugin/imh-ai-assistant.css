@@ -590,21 +590,6 @@ body {
 .left-0 {
   left: 0;
 }
-.right-12 {
-  right: 3rem;
-}
-.right-2 {
-  right: 0.5rem;
-}
-.top-24 {
-  top: 6rem;
-}
-.top-6 {
-  top: 1.5rem;
-}
-.z-\[2147483645\] {
-  z-index: 2147483645;
-}
 .z-\[2147483647\] {
   z-index: 2147483647;
 }
@@ -662,8 +647,8 @@ body {
 .max-h-\[90vh\] {
   max-height: 90vh;
 }
-.max-h-\[95vh\] {
-  max-height: 95vh;
+.min-h-24 {
+  min-height: 6rem;
 }
 .w-12 {
   width: 3rem;
@@ -677,9 +662,6 @@ body {
 .w-8 {
   width: 2rem;
 }
-.w-\[85\%\] {
-  width: 85%;
-}
 .w-full {
   width: 100%;
 }
@@ -687,17 +669,14 @@ body {
   width: -moz-max-content;
   width: max-content;
 }
+.min-w-24 {
+  min-width: 6rem;
+}
 .min-w-full {
   min-width: 100%;
 }
-.max-w-\[85vw\] {
-  max-width: 85vw;
-}
 .max-w-\[90\%\] {
   max-width: 90%;
-}
-.max-w-\[90vw\] {
-  max-width: 90vw;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1000,6 +979,10 @@ body {
 .text-blade-100 {
   --tw-text-opacity: 1;
   color: rgb(188 255 205 / var(--tw-text-opacity, 1));
+}
+.text-dracula {
+  --tw-text-opacity: 1;
+  color: rgb(189 147 249 / var(--tw-text-opacity, 1));
 }
 .text-dracula-900 {
   --tw-text-opacity: 1;

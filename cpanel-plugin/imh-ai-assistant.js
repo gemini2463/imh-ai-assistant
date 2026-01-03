@@ -518,7 +518,7 @@ var jv;
 function E6() {
   return (jv || ((jv = 1), (kf.exports = k6())), kf.exports);
 }
-var nt = E6(),
+var it = E6(),
   gt = Eu();
 const A6 = yo(gt);
 var Ns = {},
@@ -3187,24 +3187,24 @@ function R6() {
       e: {
         var Ze = Yp.get(o);
         if (Ze !== void 0) {
-          var it = Qu,
+          var nt = Qu,
             ot = o;
           switch (o) {
             case "keypress":
               if (Uo(k) === 0) break e;
             case "keydown":
             case "keyup":
-              it = f5;
+              nt = f5;
               break;
             case "focusin":
-              ((ot = "focus"), (it = rl));
+              ((ot = "focus"), (nt = rl));
               break;
             case "focusout":
-              ((ot = "blur"), (it = rl));
+              ((ot = "blur"), (nt = rl));
               break;
             case "beforeblur":
             case "afterblur":
-              it = rl;
+              nt = rl;
               break;
             case "click":
               if (k.button === 2) break e;
@@ -3216,7 +3216,7 @@ function R6() {
             case "mouseout":
             case "mouseover":
             case "contextmenu":
-              it = Bp;
+              nt = Bp;
               break;
             case "drag":
             case "dragend":
@@ -3226,32 +3226,32 @@ function R6() {
             case "dragover":
             case "dragstart":
             case "drop":
-              it = Yb;
+              nt = Yb;
               break;
             case "touchcancel":
             case "touchend":
             case "touchmove":
             case "touchstart":
-              it = d5;
+              nt = d5;
               break;
             case Zp:
             case Gp:
             case Jp:
-              it = t5;
+              nt = t5;
               break;
             case Xp:
-              it = v5;
+              nt = v5;
               break;
             case "scroll":
-              it = Jb;
+              nt = Jb;
               break;
             case "wheel":
-              it = g5;
+              nt = g5;
               break;
             case "copy":
             case "cut":
             case "paste":
-              it = n5;
+              nt = n5;
               break;
             case "gotpointercapture":
             case "lostpointercapture":
@@ -3261,7 +3261,7 @@ function R6() {
             case "pointerout":
             case "pointerover":
             case "pointerup":
-              it = Rp;
+              nt = Rp;
           }
           var st = (h & 4) !== 0,
             fr = !st && o === "scroll",
@@ -3282,7 +3282,7 @@ function R6() {
             be = be.return;
           }
           0 < st.length &&
-            ((Ze = new it(Ze, ot, null, k, Ge)),
+            ((Ze = new nt(Ze, ot, null, k, Ge)),
             Je.push({ event: Ze, listeners: st }));
         }
       }
@@ -3290,7 +3290,7 @@ function R6() {
         e: {
           if (
             ((Ze = o === "mouseover" || o === "pointerover"),
-            (it = o === "mouseout" || o === "pointerout"),
+            (nt = o === "mouseout" || o === "pointerout"),
             Ze &&
               k !== tt &&
               (ot = k.relatedTarget || k.fromElement) &&
@@ -3298,23 +3298,23 @@ function R6() {
           )
             break e;
           if (
-            (it || Ze) &&
+            (nt || Ze) &&
             ((Ze =
               Ge.window === Ge
                 ? Ge
                 : (Ze = Ge.ownerDocument)
                   ? Ze.defaultView || Ze.parentWindow
                   : window),
-            it
+            nt
               ? ((ot = k.relatedTarget || k.toElement),
-                (it = qe),
+                (nt = qe),
                 (ot = ot ? vi(ot) : null),
                 ot !== null &&
                   ((fr = ze(ot)),
                   ot !== fr || (ot.tag !== 5 && ot.tag !== 6)) &&
                   (ot = null))
-              : ((it = null), (ot = qe)),
-            it !== ot)
+              : ((nt = null), (ot = qe)),
+            nt !== ot)
           ) {
             if (
               ((st = Bp),
@@ -3326,9 +3326,9 @@ function R6() {
                 (Ye = "onPointerLeave"),
                 (Ae = "onPointerEnter"),
                 (be = "pointer")),
-              (fr = it == null ? Ze : Wi(it)),
+              (fr = nt == null ? Ze : Wi(nt)),
               (Be = ot == null ? Ze : Wi(ot)),
-              (Ze = new st(Ye, be + "leave", it, k, Ge)),
+              (Ze = new st(Ye, be + "leave", nt, k, Ge)),
               (Ze.target = fr),
               (Ze.relatedTarget = Be),
               (Ye = null),
@@ -3338,10 +3338,10 @@ function R6() {
                 (st.relatedTarget = fr),
                 (Ye = st)),
               (fr = Ye),
-              it && ot)
+              nt && ot)
             )
               t: {
-                for (st = it, Ae = ot, be = 0, Be = st; Be; Be = Hi(Be)) be++;
+                for (st = nt, Ae = ot, be = 0, Be = st; Be; Be = Hi(Be)) be++;
                 for (Be = 0, Ye = Ae; Ye; Ye = Hi(Ye)) Be++;
                 for (; 0 < be - Be; ) ((st = Hi(st)), be--);
                 for (; 0 < Be - be; ) ((Ae = Hi(Ae)), Be--);
@@ -3353,15 +3353,15 @@ function R6() {
                 st = null;
               }
             else st = null;
-            (it !== null && n1(Je, Ze, it, st, !1),
+            (nt !== null && n1(Je, Ze, nt, st, !1),
               ot !== null && fr !== null && n1(Je, fr, ot, st, !0));
           }
         }
         e: {
           if (
             ((Ze = qe ? Wi(qe) : window),
-            (it = Ze.nodeName && Ze.nodeName.toLowerCase()),
-            it === "select" || (it === "input" && Ze.type === "file"))
+            (nt = Ze.nodeName && Ze.nodeName.toLowerCase()),
+            nt === "select" || (nt === "input" && Ze.type === "file"))
           )
             var ut = S5;
           else if (Np(Ze))
@@ -3371,8 +3371,8 @@ function R6() {
               var lt = k5;
             }
           else
-            (it = Ze.nodeName) &&
-              it.toLowerCase() === "input" &&
+            (nt = Ze.nodeName) &&
+              nt.toLowerCase() === "input" &&
               (Ze.type === "checkbox" || Ze.type === "radio") &&
               (ut = A5);
           if (ut && (ut = ut(o, qe))) {
@@ -4059,7 +4059,7 @@ function R6() {
       }
       return null;
     }
-    function it(Ae, be, Be, Ye, ut) {
+    function nt(Ae, be, Be, Ye, ut) {
       if ((typeof Ye == "string" && Ye !== "") || typeof Ye == "number")
         return ((Ae = Ae.get(Be) || null), ve(be, Ae, "" + Ye, ut));
       if (typeof Ye == "object" && Ye !== null) {
@@ -4076,7 +4076,7 @@ function R6() {
             );
           case v:
             var lt = Ye._init;
-            return it(Ae, be, Be, lt(Ye._payload), ut);
+            return nt(Ae, be, Be, lt(Ye._payload), ut);
         }
         if (me(Ye) || d(Ye))
           return ((Ae = Ae.get(Be) || null), Ge(be, Ae, Ye, ut, null));
@@ -4113,7 +4113,7 @@ function R6() {
         return (ar && yi(Ae, vt), ut);
       }
       for (ft = R(Ae, ft); vt < Be.length; vt++)
-        ((yr = it(ft, Ae, vt, Be[vt], Ye)),
+        ((yr = nt(ft, Ae, vt, Be[vt], Ye)),
           yr !== null &&
             (o &&
               yr.alternate !== null &&
@@ -4162,7 +4162,7 @@ function R6() {
         return (ar && yi(Ae, vt), ut);
       }
       for (ft = R(Ae, ft); !Nt.done; vt++, Nt = Be.next())
-        ((Nt = it(ft, Ae, vt, Nt.value, Ye)),
+        ((Nt = nt(ft, Ae, vt, Nt.value, Ye)),
           Nt !== null &&
             (o &&
               Nt.alternate !== null &&
@@ -4455,12 +4455,12 @@ function R6() {
       ((te = 0), (Ge = qe = ye = null), (ve = j));
       do {
         var Ze = ve.lane,
-          it = ve.eventTime;
+          nt = ve.eventTime;
         if ((R & Ze) === Ze) {
           Ge !== null &&
             (Ge = Ge.next =
               {
-                eventTime: it,
+                eventTime: nt,
                 lane: 0,
                 tag: ve.tag,
                 payload: ve.payload,
@@ -4470,10 +4470,10 @@ function R6() {
           e: {
             var ot = o,
               st = ve;
-            switch (((Ze = h), (it = k), st.tag)) {
+            switch (((Ze = h), (nt = k), st.tag)) {
               case 1:
                 if (((ot = st.payload), typeof ot == "function")) {
-                  Je = ot.call(it, Je, Ze);
+                  Je = ot.call(nt, Je, Ze);
                   break e;
                 }
                 Je = ot;
@@ -4483,7 +4483,7 @@ function R6() {
               case 0:
                 if (
                   ((ot = st.payload),
-                  (Ze = typeof ot == "function" ? ot.call(it, Je, Ze) : ot),
+                  (Ze = typeof ot == "function" ? ot.call(nt, Je, Ze) : ot),
                   Ze == null)
                 )
                   break e;
@@ -4499,15 +4499,15 @@ function R6() {
             (Ze = N.effects),
             Ze === null ? (N.effects = [ve]) : Ze.push(ve));
         } else
-          ((it = {
-            eventTime: it,
+          ((nt = {
+            eventTime: nt,
             lane: Ze,
             tag: ve.tag,
             payload: ve.payload,
             callback: ve.callback,
             next: null,
           }),
-            Ge === null ? ((qe = Ge = it), (ye = Je)) : (Ge = Ge.next = it),
+            Ge === null ? ((qe = Ge = nt), (ye = Je)) : (Ge = Ge.next = nt),
             (te |= Ze));
         if (((ve = ve.next), ve === null)) {
           if (((ve = N.shared.pending), ve === null)) break;
@@ -5614,9 +5614,9 @@ Error generating stack: ` +
         typeof ye == "object" && ye !== null
           ? (ye = en(ye))
           : ((ye = Dr(k) ? mi : Mr.current), (ye = Ki(h, ye))));
-      var it = k.getDerivedStateFromProps;
+      var nt = k.getDerivedStateFromProps;
       ((Ge =
-        typeof it == "function" ||
+        typeof nt == "function" ||
         typeof te.getSnapshotBeforeUpdate == "function") ||
         (typeof te.UNSAFE_componentWillReceiveProps != "function" &&
           typeof te.componentWillReceiveProps != "function") ||
@@ -5627,7 +5627,7 @@ Error generating stack: ` +
         us(h, R, te, N));
       var ot = h.memoizedState;
       ve !== Je || Ze !== ot || Tr.current || ri
-        ? (typeof it == "function" && (Vl(h, k, it, R), (ot = h.memoizedState)),
+        ? (typeof nt == "function" && (Vl(h, k, nt, R), (ot = h.memoizedState)),
           (qe = ri || W1(h, k, qe, R, Ze, ot, ye) || !1)
             ? (Ge ||
                 (typeof te.UNSAFE_componentWillUpdate != "function" &&
@@ -6724,25 +6724,25 @@ Error generating stack: ` +
               Ze = null;
             t: for (;;) {
               for (
-                var it;
+                var nt;
                 Je !== k || (N !== 0 && Je.nodeType !== 3) || (ve = te + N),
                   Je !== j || (R !== 0 && Je.nodeType !== 3) || (ye = te + R),
                   Je.nodeType === 3 && (te += Je.nodeValue.length),
-                  (it = Je.firstChild) !== null;
+                  (nt = Je.firstChild) !== null;
 
               )
-                ((Ze = Je), (Je = it));
+                ((Ze = Je), (Je = nt));
               for (;;) {
                 if (Je === o) break t;
                 if (
                   (Ze === k && ++qe === N && (ve = te),
                   Ze === j && ++Ge === R && (ye = te),
-                  (it = Je.nextSibling) !== null)
+                  (nt = Je.nextSibling) !== null)
                 )
                   break;
                 ((Je = Ze), (Ze = Je.parentNode));
               }
-              Je = it;
+              Je = nt;
             }
             k = ve === -1 || ye === -1 ? null : { start: ve, end: ye };
           } else k = null;
@@ -7124,9 +7124,9 @@ Error generating stack: ` +
                 case "select":
                   var Ze = N._wrapperState.wasMultiple;
                   N._wrapperState.wasMultiple = !!j.multiple;
-                  var it = j.value;
-                  it != null
-                    ? se(N, !!j.multiple, it, !1)
+                  var nt = j.value;
+                  nt != null
+                    ? se(N, !!j.multiple, nt, !1)
                     : Ze !== !!j.multiple &&
                       (j.defaultValue != null
                         ? se(N, !!j.multiple, j.defaultValue, !0)
@@ -7187,7 +7187,7 @@ Error generating stack: ` +
           )
             for (at = o, Ge = o.child; Ge !== null; ) {
               for (Je = at = Ge; at !== null; ) {
-                switch (((Ze = at), (it = Ze.child), Ze.tag)) {
+                switch (((Ze = at), (nt = Ze.child), Ze.tag)) {
                   case 0:
                   case 11:
                   case 14:
@@ -7218,7 +7218,7 @@ Error generating stack: ` +
                       continue;
                     }
                 }
-                it !== null ? ((it.return = Ze), (at = it)) : Mv(Je);
+                nt !== null ? ((nt.return = Ze), (at = nt)) : Mv(Je);
               }
               Ge = Ge.sibling;
             }
@@ -7926,12 +7926,12 @@ Error generating stack: ` +
                   (Ge.lanes = Ze.lanes))
                 : ((Ge.updateQueue = null), (Ge.memoizedState = null));
             }
-            var it = X1(te);
-            if (it !== null) {
-              ((it.flags &= -257),
-                Y1(it, te, ve, j, h),
-                it.mode & 1 && J1(j, qe, h),
-                (h = it),
+            var nt = X1(te);
+            if (nt !== null) {
+              ((nt.flags &= -257),
+                Y1(nt, te, ve, j, h),
+                nt.mode & 1 && J1(j, qe, h),
+                (h = nt),
                 (ye = qe));
               var ot = h.updateQueue;
               if (ot === null) {
@@ -8165,16 +8165,16 @@ Error generating stack: ` +
                       for (; at !== null; ) {
                         Ge = at;
                         var Ze = Ge.sibling,
-                          it = Ge.return;
+                          nt = Ge.return;
                         if ((pv(Ge), Ge === qe)) {
                           at = null;
                           break;
                         }
                         if (Ze !== null) {
-                          ((Ze.return = it), (at = Ze));
+                          ((Ze.return = nt), (at = Ze));
                           break;
                         }
-                        at = it;
+                        at = nt;
                       }
                   }
                 }
@@ -13207,7 +13207,7 @@ const _M = globalThis?.IMH_AI_ASSISTANT?.ajax_shell_path || "",
       chatType: "OpenAI",
       model: "gpt-5.2",
       systemMessage:
-        "You are an expert Natural Language Understanding (NLU) system for a web server management interface. Your task is to analyze user queries and map them to specific intents with high accuracy. Always aim to provide clear, actionable responses that directly address the user's needs. If the user query is unrelated to web server management, politely inform them that you can only assist with web server management tasks. You may deviate from the previous instructions only if the user requests to generate a personality for the server. The bash shell environment is your domain. You do not have root access. Run commands until the task has completed. You have only a 400,000 token context window (GPT-5.2), so do not issue commands that dump huge amounts of data such as ```ls -R /home``` or similar. Exceeding the context window in a single request will cause the session to fail.  Ensure the commands are safe and appropriate for execution on a production server. Prioritize security and best practices. Bias towards action and using commands to complete the task or inquiry.",
+        "You are an expert Natural Language Understanding (NLU) system for a web server management interface. Your task is to analyze user queries and map them to specific intents with high accuracy. Always aim to provide clear, actionable responses that directly address the user's needs. If the user query is unrelated to web server management, politely inform them that you can only assist with web server management tasks. You may deviate from the previous instructions only if the user requests to generate a personality for the server. The bash shell environment is your domain. You do not have root access. Run commands until the task has completed. Unless root is strictly necessary, don't ask the user to run commands, especially to ask the user to copy and paste output from their shell. The user prefers not to use a shell. You are expected to be the one running commands, figuring out solutions, and doing investigations. You have only a 400,000 token context window (GPT-5.2), so do not issue commands that dump huge amounts of data such as ```ls -R /home``` or similar. Exceeding the context window in a single request will cause the session to fail.  Ensure the commands are safe and appropriate for execution on a production server. Prioritize security and best practices. Bias towards action and using commands to complete the task or inquiry.",
       systemProfile: { control_panel: { name: "cPanel & WHM" } },
       temperature: "0.8",
       topp: "1",
@@ -27966,11 +27966,11 @@ function Qk(r, s) {
       }),
     Pd(r, M),
     K9(r, {
-      Fragment: nt.Fragment,
+      Fragment: it.Fragment,
       components: w,
       ignoreInvalidStyle: !0,
-      jsx: nt.jsx,
-      jsxs: nt.jsxs,
+      jsx: it.jsx,
+      jsxs: it.jsxs,
       passKeys: !0,
       passNode: !0,
     })
@@ -28029,15 +28029,15 @@ const ig = ({ txt: r, role: s }) => {
       i = gt.useCallback(({ inline: M, className: m, children: _, ...E }) => {
         const A = /language-(\w+)/.exec(m || "");
         return !M && A
-          ? nt.jsx("pre", {
+          ? it.jsx("pre", {
               className: `border p-4 rounded bg-nosferatu-200 text-black text-xl language-${A[1]} ${m} overflow-auto`,
-              children: nt.jsx("code", {
+              children: it.jsx("code", {
                 ...E,
                 className: `${m} whitespace-pre-wrap break-all`,
                 children: _,
               }),
             })
-          : nt.jsx("code", {
+          : it.jsx("code", {
               className: `${m} bg-nosferatu-200 text-black rounded p-1 text-xl whitespace-pre-wrap break-all`,
               ...E,
               children: _,
@@ -28050,14 +28050,14 @@ const ig = ({ txt: r, role: s }) => {
           : [],
       x = (l ? p : p.slice(0, 5)).join(`
 `);
-    return nt.jsxs("div", {
+    return it.jsxs("div", {
       className: "text-2xl",
       children: [
-        nt.jsx(RM, {
+        it.jsx(RM, {
           children:
             s === "user"
-              ? nt.jsx("div", { className: "break-all", children: x })
-              : nt.jsx(Jk, {
+              ? it.jsx("div", { className: "break-all", children: x })
+              : it.jsx(Jk, {
                   remarkPlugins: [y9],
                   components: { code: i },
                   className: "markdown text-black",
@@ -28065,10 +28065,10 @@ const ig = ({ txt: r, role: s }) => {
                 }),
         }),
         p.length > 5 &&
-          nt.jsx("div", {
+          it.jsx("div", {
             className: "text-center cursor-pointer mt-2",
             onClick: w,
-            children: nt.jsx("i", {
+            children: it.jsx("i", {
               className: l
                 ? "fa-solid fa-ellipsis text-3xl text-dracula-900 hover:text-dracula-500"
                 : "fa-solid fa-ellipsis text-3xl text-blade-100 hover:text-blade-500",
@@ -28082,10 +28082,10 @@ const ig = ({ txt: r, role: s }) => {
   rE = ["Low", "Medium", "High"],
   ag = ({ label: r, value: s, options: l, onChange: u }) => {
     const [w, i] = gt.useState(!1);
-    return nt.jsxs("div", {
+    return it.jsxs("div", {
       className: "relative text-xl",
       children: [
-        nt.jsxs("button", {
+        it.jsxs("button", {
           type: "button",
           onClick: () => i((p) => !p),
           className: `
@@ -28100,15 +28100,15 @@ const ig = ({ txt: r, role: s }) => {
           hover:border-gray-800
         `,
           children: [
-            nt.jsxs("span", { className: "truncate", children: [r, ": ", s] }),
-            nt.jsx("span", {
+            it.jsxs("span", { className: "truncate", children: [r, ": ", s] }),
+            it.jsx("span", {
               className: "ml-auto text-[10px] text-white/60",
               children: "▼",
             }),
           ],
         }),
         w &&
-          nt.jsx("div", {
+          it.jsx("div", {
             className: `
             relative left-0 mt-1 w-max
             min-w-full
@@ -28118,13 +28118,13 @@ const ig = ({ txt: r, role: s }) => {
             shadow-lg
             z-[2147483647]
           `,
-            children: nt.jsx("ul", {
+            children: it.jsx("ul", {
               className: "py-1 text-xl",
               children: l.map((p) =>
-                nt.jsx(
+                it.jsx(
                   "li",
                   {
-                    children: nt.jsxs("button", {
+                    children: it.jsxs("button", {
                       type: "button",
                       onClick: () => {
                         (u(p), i(!1));
@@ -28427,10 +28427,9 @@ const ig = ({ txt: r, role: s }) => {
             e.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
           } catch {}
       }, [z, Z, ne, r]),
-      nt.jsxs("div", {
+      it.jsxs("div", {
         className: `
-      fixed top-24 right-2 z-[2147483645]
-      w-[85%] max-w-[85vw]
+      flex flex-col
       mt-4
       rounded-3xl
       bg-black/95
@@ -28445,20 +28444,20 @@ const ig = ({ txt: r, role: s }) => {
       ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
     `,
         children: [
-          nt.jsxs("div", {
+          it.jsxs("div", {
             className:
               "flex items-center justify-between px-4 pt-3 pb-2 bg-gray-600/10",
             children: [
-              nt.jsxs("div", {
+              it.jsxs("div", {
                 className: "flex gap-2 items-center",
                 children: [
-                  nt.jsx(ag, {
+                  it.jsx(ag, {
                     label: "Reasoning",
                     value: A,
                     options: tE,
                     onChange: C,
                   }),
-                  nt.jsx(ag, {
+                  it.jsx(ag, {
                     label: "Verbosity",
                     value: F,
                     options: rE,
@@ -28466,11 +28465,11 @@ const ig = ({ txt: r, role: s }) => {
                   }),
                 ],
               }),
-              nt.jsxs("div", {
+              it.jsxs("div", {
                 className: "flex items-center gap-2",
                 children: [
                   _ &&
-                    nt.jsx("button", {
+                    it.jsx("button", {
                       type: "button",
                       onClick: E,
                       className: `
@@ -28480,7 +28479,7 @@ const ig = ({ txt: r, role: s }) => {
                   `,
                       children: "Log out",
                     }),
-                  nt.jsx("button", {
+                  it.jsx("button", {
                     type: "button",
                     onClick: d,
                     style: { fontFamily: "'Playfair Display', Georgia, serif" },
@@ -28492,16 +28491,16 @@ const ig = ({ txt: r, role: s }) => {
               hover:bg-gray-200 hover:text-black
               transition
               text-white`,
-                    children: nt.jsx("i", {
+                    children: it.jsx("i", {
                       className:
-                        "fa-regular fa-pen-to-square text-xl mr-1 text-white",
+                        "fa-solid fa-pen-to-square text-xl mr-1 text-dracula",
                     }),
                   }),
                 ],
               }),
             ],
           }),
-          nt.jsxs("div", {
+          it.jsxs("div", {
             className:
               "px-5 pt-3 pb-3 space-y-6 mt-4 overflow-y-auto flex-1 text-xl",
             style: {
@@ -28511,7 +28510,7 @@ const ig = ({ txt: r, role: s }) => {
             children: [
               z.length === 0 &&
                 !Z &&
-                nt.jsx("h2", {
+                it.jsx("h2", {
                   className: "text-4xl font-semibold",
                   style: {
                     fontFamily: "'Playfair Display', Georgia, serif",
@@ -28522,17 +28521,17 @@ const ig = ({ txt: r, role: s }) => {
               z.map((U, X) => {
                 const re = B(U.content);
                 return U.role === "assistant"
-                  ? nt.jsx(
+                  ? it.jsx(
                       "div",
                       {
                         className:
                           "max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto border border-white/10 bg-nosferatu-300 text-black text-3xl",
                         style: { fontFamily: "inherit", fontStyle: "normal" },
-                        children: nt.jsx(ig, { role: "assistant", txt: re }),
+                        children: it.jsx(ig, { role: "assistant", txt: re }),
                       },
                       X
                     )
-                  : nt.jsx(
+                  : it.jsx(
                       "div",
                       {
                         className:
@@ -28544,21 +28543,21 @@ const ig = ({ txt: r, role: s }) => {
                     );
               }),
               Z &&
-                nt.jsx("div", {
+                it.jsx("div", {
                   className:
                     "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto border border-white/50 bg-nosferatu-300 text-black text-3xl",
-                  children: nt.jsx(ig, {
+                  children: it.jsx(ig, {
                     role: "assistant",
                     txt: ne || "Thinking...",
                   }),
                 }),
-              nt.jsx("div", { ref: e }),
+              it.jsx("div", { ref: e }),
             ],
           }),
-          nt.jsxs("div", {
+          it.jsxs("div", {
             className: "px-5 pt-2 pb-4 space-y-6 border-t border-white/10",
             children: [
-              nt.jsxs("div", {
+              it.jsxs("div", {
                 className: `
             rounded-2xl
             bg-gray-900
@@ -28572,21 +28571,7 @@ const ig = ({ txt: r, role: s }) => {
             transition
           `,
                 children: [
-                  nt.jsx("button", {
-                    type: "button",
-                    className: `
-              text-white hover:text-white/60
-              flex items-center justify-center
-              h-12 w-12 rounded-full
-              bg-gray-700
-              hover:bg-gray-500 hover:text-black
-              transition
-            `,
-                    children: nt.jsx("i", {
-                      className: "fas fa-paperclip text-2xl text-white",
-                    }),
-                  }),
-                  nt.jsx("input", {
+                  it.jsx("input", {
                     type: "text",
                     value: I,
                     onChange: (U) => D(U.target.value),
@@ -28599,7 +28584,7 @@ const ig = ({ txt: r, role: s }) => {
             `,
                     onKeyDown: q,
                   }),
-                  nt.jsx("button", {
+                  it.jsx("button", {
                     type: "button",
                     onClick: oe,
                     className: `
@@ -28608,16 +28593,16 @@ const ig = ({ txt: r, role: s }) => {
               transition
               ${I.trim() ? "bg-gray-400 text-black hover:bg-gray-500" : "bg-white/40 text-white cursor-default"}
             `,
-                    children: nt.jsx("i", {
+                    children: it.jsx("i", {
                       className: "fas fa-arrow-up text-xl",
                     }),
                   }),
                 ],
               }),
-              nt.jsx("div", {
+              it.jsx("div", {
                 className: "flex flex-wrap gap-4 pt-2",
                 children: Pi.floatingConfig.quickPrompts.map((U) =>
-                  nt.jsx(
+                  it.jsx(
                     "button",
                     {
                       type: "button",
@@ -28633,7 +28618,7 @@ const ig = ({ txt: r, role: s }) => {
                   transition
                 `,
                       onClick: () => D(U),
-                      children: nt.jsx("span", { children: U }),
+                      children: it.jsx("span", { children: U }),
                     },
                     U
                   )
@@ -61872,59 +61857,56 @@ function VB() {
     S.key === "Enter" && (S.preventDefault(), ne());
   };
   return HB.createPortal(
-    nt.jsx(nt.Fragment, {
-      children: nt.jsxs(nt.Fragment, {
+    it.jsx(it.Fragment, {
+      children: it.jsxs(it.Fragment, {
         children: [
           " ",
-          nt.jsx("div", {
+          it.jsx("div", {
             className: `
-    fixed top-6 right-12 z-[2147483647]
-    max-w-[90vw]
+    min-w-24
+    min-h-24
+    flex
     rounded-3xl
     bg-black/95
-    border border-white/10
-    shadow-[0_0_40px_rgba(0,0,0,0.9)]
     text-white
     overflow-hidden
     backdrop-blur-xl
-    flex flex-col
-    max-h-[95vh]
     transition-transform transition-opacity duration-200
     ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `,
-            children: nt.jsx("div", {
+            children: it.jsx("div", {
               className:
                 "flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10",
-              children: nt.jsx("div", {
+              children: it.jsx("div", {
                 className: "text-xl text-white/70",
                 children: M
-                  ? nt.jsx(nt.Fragment, {
-                      children: nt.jsx("img", {
+                  ? it.jsx(it.Fragment, {
+                      children: it.jsx("img", {
                         src: "imh-ai-assistant.png",
                         alt: "AI Assistant",
                         className: "imh-title-img",
                       }),
                     })
-                  : nt.jsxs("form", {
+                  : it.jsxs("form", {
                       onSubmit: ne,
                       className: "px-5 pt-4 pb-5 space-y-4 text-xl",
                       children: [
-                        nt.jsx("h2", {
+                        it.jsx("h2", {
                           className: "text-xl font-semibold tracking-tight",
-                          children: nt.jsx("img", {
+                          children: it.jsx("img", {
                             src: "imh-ai-assistant.png",
                             alt: "AI Assistant",
                             className: "imh-title-img",
                           }),
                         }),
-                        nt.jsxs("div", {
+                        it.jsxs("div", {
                           className: "space-y-2",
                           children: [
-                            nt.jsx("label", {
+                            it.jsx("label", {
                               className: "block text-xl text-white/60 mb-1",
                               children: "Username",
                             }),
-                            nt.jsx("input", {
+                            it.jsx("input", {
                               type: "text",
                               autoComplete: "username",
                               value: u,
@@ -61940,14 +61922,14 @@ function VB() {
                             }),
                           ],
                         }),
-                        nt.jsxs("div", {
+                        it.jsxs("div", {
                           className: "space-y-2",
                           children: [
-                            nt.jsx("label", {
+                            it.jsx("label", {
                               className: "block text-xl text-white/60 mb-1",
                               children: "Passphrase",
                             }),
-                            nt.jsx("input", {
+                            it.jsx("input", {
                               type: "password",
                               autoComplete: "current-password",
                               value: i,
@@ -61965,12 +61947,12 @@ function VB() {
                           ],
                         }),
                         _ &&
-                          nt.jsx("p", {
+                          it.jsx("p", {
                             className: "text-xl text-red-400",
                             children:
                               "Login error. Please check your credentials.",
                           }),
-                        nt.jsx("button", {
+                        it.jsx("button", {
                           type: "submit",
                           className: `
                   w-full mt-2
@@ -61986,7 +61968,7 @@ function VB() {
             }),
           }),
           M &&
-            nt.jsx(nE, {
+            it.jsx(nE, {
               isOpen: r,
               onClose: () => s(!1),
               serverURL: l,
@@ -62008,5 +61990,5 @@ function VB() {
   );
 }
 T6.createRoot(document.getElementById("ai-assistant-block")).render(
-  nt.jsx(A6.StrictMode, { children: nt.jsx(VB, {}) })
+  it.jsx(A6.StrictMode, { children: it.jsx(VB, {}) })
 );

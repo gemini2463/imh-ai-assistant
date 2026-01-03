@@ -203,17 +203,14 @@ function FloatingAssistant() {
         {/* Header */}{" "}
         <div
           className={`
-    fixed top-6 right-12 z-[2147483647]
-    max-w-[90vw]
+    min-w-24
+    min-h-24
+    flex
     rounded-3xl
     bg-black/95
-    border border-white/10
-    shadow-[0_0_40px_rgba(0,0,0,0.9)]
     text-white
     overflow-hidden
     backdrop-blur-xl
-    flex flex-col
-    max-h-[95vh]
     transition-transform transition-opacity duration-200
     ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `}
