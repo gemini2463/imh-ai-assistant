@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 import Config from "./Config";
 import ChatFloat from "./components/ChatFloat.jsx";
 import { randomBytes } from "crypto";
-import { createPortal } from "react-dom";
 
 const SERVER_URL_DEFAULT = Config.floatingConfig.serverURL;
 const DEFAULT_FLOAT_SYSTEM_MESSAGE =
@@ -150,7 +149,7 @@ function FloatingAssistant() {
     }
   };
 
-  return createPortal(
+  return (
     <>
       {/* Floating button */}
       {/*       <button
@@ -336,8 +335,7 @@ function FloatingAssistant() {
           />
         )}
       </>
-    </>,
-    document.body
+    </>
   );
 }
 
