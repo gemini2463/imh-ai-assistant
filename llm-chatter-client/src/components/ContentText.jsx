@@ -57,7 +57,8 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
     }
     if (exitCode !== undefined && exitCode !== null) {
       if (out && !out.endsWith("\n")) out += "\n";
-      out += `\n[exitCode] ${exitCode}\n`;
+      //out += `\n[exitCode] ${exitCode}\n`;
+      out += `...\n`;
     }
     return out.trimEnd();
   };
@@ -104,7 +105,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
 
         return (
           <div className="border rounded bg-nosferatu-200 text-black overflow-hidden mb-4">
-            <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
+            <div className="flex items-center justify-between px-4 py-2 mb-4 border-black/10">
               <div className="font-semibold text-lg">Shell command</div>
 
               {/*               {tooLong && (
@@ -141,9 +142,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
 
               <pre className="px-4 pb-4 overflow-auto">
                 <code className="whitespace-pre-wrap break-all">
-                  {!hasAnyResult
-                    ? "No output captured."
-                    : shown || "No output captured."}
+                  {!hasAnyResult ? "..." : shown || "..."}
                 </code>
               </pre>
 
