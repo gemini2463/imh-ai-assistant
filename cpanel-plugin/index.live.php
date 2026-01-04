@@ -257,7 +257,7 @@ if ($rawInput !== '') {
 </script>
 
 <script src="imh-ai-assistant.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-kPzJPCTyv20uLP+V6Gzop8MQ4MEelW8N5QXhX51eR4iWNmvYXVjnZ54VgUF4sRWgLouabn8+piSGV8Gt+220Xg==" crossorigin="anonymous" ></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
 
 <?php
     print $cpanel->footer();

@@ -28350,13 +28350,31 @@ ${O}`)),
               const Q = [];
               for (const se of z) {
                 const ce = await Z(se, Hn.shellScriptPath);
-                (pe.cmdResults.push(ce), Q.push({ cmd: se, result: ce }));
+                (console.log("[shell exec] cmd:", se),
+                  console.log("[shell exec] raw response:", ce),
+                  console.log("[shell exec] stdout:", ce?.received?.stdout),
+                  console.log("[shell exec] stderr:", ce?.received?.stderr),
+                  console.log("[shell exec] exitCode:", ce?.received?.exitCode),
+                  pe.cmdResults.push(ce),
+                  Q.push({ cmd: se, result: ce }));
               }
               const me = n.current;
               Number.isInteger(me) &&
                 Q.length > 0 &&
+                (console.log("[shell attach] lastShellMsgIndexRef:", n.current),
+                console.log("[shell attach] execResults:", Q),
                 U((se) => {
-                  if (!se[me]) return se;
+                  if (
+                    (console.log("[shell attach] messages length:", se.length),
+                    !se[me])
+                  )
+                    return se;
+                  console.log(
+                    "[shell attach] targetIdx:",
+                    me,
+                    "target msg:",
+                    se[me]
+                  );
                   const ce = se[me],
                     ge = (Array.isArray(ce.shellRuns) ? ce.shellRuns : []).map(
                       (_e, he) => {
@@ -28365,10 +28383,18 @@ ${O}`)),
                           ? { ...(_e || {}), cmd: we.cmd, result: we.result }
                           : _e;
                       }
+                    );
+                  console.log("[shell attach] mergedRuns:", ge);
+                  const be = se.slice();
+                  return (
+                    (be[me] = { ...ce, shellRuns: ge }),
+                    console.log(
+                      "[shell attach] final target shellRuns:",
+                      be[me].shellRuns
                     ),
-                    be = se.slice();
-                  return ((be[me] = { ...ce, shellRuns: ge }), be);
-                });
+                    be
+                  );
+                }));
             }
             let Me,
               G = "";

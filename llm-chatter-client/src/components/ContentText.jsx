@@ -121,7 +121,6 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
         );
       }
 
-      // Default behavior (your original)
       return !inline && match ? (
         <pre
           className={`border p-4 rounded bg-nosferatu-200 text-black text-xl language-${match[1]} ${className} overflow-auto`}
