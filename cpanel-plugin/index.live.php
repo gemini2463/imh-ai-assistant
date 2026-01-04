@@ -231,7 +231,7 @@ if ($rawInput !== '') {
           'shellCmd' => $shellCmd,
           'stdout'   => $makeItSo['stdout'],
           'stderr'   => $makeItSo['stderr'],
-          'exitCode' => $makeItSo['exitCode'],
+          'exitCode' => $makeItSo['exitCode'], 
       ],
   ]);
 
