@@ -1,0 +1,26 @@
+[
+  {
+    "order": "99",
+    "icon": "imh-ai-assistant-small.svg",
+    "name": "AI Assistant",
+    "id": "ai-assistant-group",
+    "type": "group"
+  },
+  {
+    "order": "50",
+    "name": "AI Assistant",
+    "group_id": "ai-assistant-group",
+    "type": "link",
+    "id": "imh-ai-assistant",
+    "featuremanager": false,
+    "description": "Helpful AI Assistant to assist you with cPanel tasks.",
+    "icon": "imh-ai-assistant.svg",
+    "uri": "imh-ai-assistant/index.live.php"
+  },
+  {
+    "type": "account_enhancement",
+    "name": "IMH AI Assistant",
+    "id": "ai-assistant-enhancement",
+    "plugin_id": "imh-ai-assistant"
+  }
+]

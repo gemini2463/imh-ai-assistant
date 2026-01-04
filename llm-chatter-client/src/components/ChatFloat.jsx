@@ -274,17 +274,22 @@ const ChatFloat = ({
                 continue;
               }
 
+              // Render assistant deltas + capture shell commands as fenced blocks.
               if (
                 typeof payload.type === "string" &&
                 payload.type.endsWith("delta") &&
                 typeof payload.delta === "string"
               ) {
                 const piece = payload.delta;
+
+                // If we're inside a shell command, don't print the raw command text inline.
+                // Buffer it and render as a fenced ```shell block when the command is done.
                 if (cmdState.inCommand) {
                   cmdState.buf += piece;
+                } else {
+                  output += piece;
+                  setTempOutput(output);
                 }
-                output += piece;
-                setTempOutput(output);
               }
 
               if (payload.type && payload.type.endsWith("command.added")) {
@@ -294,13 +299,19 @@ const ChatFloat = ({
 
               if (payload.type && payload.type.endsWith("command.done")) {
                 cmdState.inCommand = false;
+
                 const fullCmd = (cmdState.buf || "").trim();
                 if (fullCmd.length > 0) {
+                  // Keep existing behavior: queue command for execution
                   setShellCmd((prev) => prev.concat(fullCmd));
+
+                  // NEW: show the command as a nice Markdown code block in the assistant output
+                  if (output && !output.endsWith("\n")) output += "\n";
+                  output += `\n\`\`\`shell\n${fullCmd}\n\`\`\`\n`;
+                  setTempOutput(output);
                 }
+
                 cmdState.buf = "";
-                output += "\n\n";
-                setTempOutput(output);
               }
             }
           }
@@ -337,14 +348,20 @@ const ChatFloat = ({
               }
 
               if (out.type === "shell_call") {
-                commands = out?.action?.commands;
+                const commands = out?.action?.commands;
+
                 if (Array.isArray(commands) && commands.length > 0) {
                   for (const cmd of commands) {
                     const cmdStr = String(cmd);
-                    parts.push(cmdStr);
+
+                    // NEW: render as a fenced code block
+                    parts.push(`\`\`\`shell\n${cmdStr}\n\`\`\``);
+
+                    // Keep existing behavior: queue command for execution
                     setShellCmd((prev) => prev.concat(cmdStr));
                   }
                 }
+
                 continue;
               }
 

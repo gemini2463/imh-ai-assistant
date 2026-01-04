@@ -68,14 +68,14 @@ function FloatingAssistant() {
   const clearAuth = useCallback(() => {
     Cookies.set("fa_clientJWT", JSON.stringify(""), { expires: 1 });
     Cookies.set("fa_checkedIn", JSON.stringify(false), { expires: 1 });
-    Cookies.set("fa_serverUsername", JSON.stringify(""), { expires: 1 });
+    //Cookies.set("fa_serverUsername", JSON.stringify(""), { expires: 1 });
     // We generally keep sessionHash; if you truly want to reset it on logout:
     // Cookies.set("fa_sessionHash", JSON.stringify(""), { expires: 1 });
     // setSessionHash("");
 
     setClientJWT("");
     setCheckedIn(false);
-    setServerUsername("");
+    //setServerUsername("");
   }, []);
 
   const logoutUser = useCallback(async () => {

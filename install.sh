@@ -222,7 +222,6 @@ install_cpanel() {
     local APPCONF_SRC="$APPDIR/$SCRIPT_NAME.conf"
     local REPO_SUBDIR="cpanel-plugin"
 
-    create_directory "/var/cpanel/apps"
     create_directory "$APPDIR"
 
     TEMP_DIR=$(mktemp -d) || error_exit "Failed to create temporary directory"
@@ -232,6 +231,9 @@ install_cpanel() {
 
     download_file "$BASE_URL/$REPO_SUBDIR/index.live.php" "$TEMP_DIR/index.live.php" \
         || error_exit "Failed to get index.live.php"
+
+    download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.tar.gz" "$TEMP_DIR/$SCRIPT_NAME.tar.gz" \
+        || error_exit "Failed to get $SCRIPT_NAME.tar.gz"
 
     download_file "$BASE_URL/$REPO_SUBDIR/$SCRIPT_NAME.conf" "$TEMP_DIR/$SCRIPT_NAME.conf" \
         || error_exit "Failed to get $SCRIPT_NAME.conf"
@@ -275,6 +277,10 @@ install_cpanel() {
     if [[ ! -x "/usr/local/cpanel/bin/register_appconfig" ]]; then
         error_exit "register_appconfig not found"
     fi
+
+    # Install the plugin via cPanel script
+    /usr/local/cpanel/scripts/uninstall_plugin "$APPDIR/$SCRIPT_NAME.tar.gz" >/dev/null 2>&1 || true
+    /usr/local/cpanel/scripts/install_plugin "$APPDIR/$SCRIPT_NAME.tar.gz" || error_exit "Failed to install plugin via install_plugin script"
 
     # Re-register to apply updates cleanly
     /usr/local/cpanel/bin/unregister_appconfig "$SCRIPT_NAME" >/dev/null 2>&1 || true
@@ -371,7 +377,7 @@ main() {
         install_cpanel
         ;;
     "cwp")
-        install_cwp
+        #install_cwp
         ;;
     esac
 
