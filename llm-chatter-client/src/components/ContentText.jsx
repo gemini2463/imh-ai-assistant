@@ -103,7 +103,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
         );
 
         return (
-          <div className="border rounded bg-nosferatu-200 text-black overflow-hidden">
+          <div className="border rounded bg-nosferatu-200 text-black overflow-hidden mb-4">
             <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
               <div className="font-semibold text-lg">Shell command</div>
 
@@ -115,7 +115,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
                   className="text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition"
                   title={isOpen ? "Show less output" : "Show full output"}
                 >
-                  {isOpen ? "Show less" : "Show more"}
+                  {/* {isOpen ? "Show less" : "Show more"} */}
                 </button>
               )}
             </div>
@@ -143,8 +143,8 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
               <pre className="px-4 pb-4 overflow-auto">
                 <code className="whitespace-pre-wrap break-all">
                   {!hasAnyResult
-                    ? "No output captured yet."
-                    : shown || "No output captured yet."}
+                    ? "No output captured."
+                    : shown || "No output captured."}
                 </code>
               </pre>
 
@@ -201,7 +201,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
         )}
       </Hyphenated>
 
-      {lines.length > 5 && (
+      {/*       {lines.length > 5 && (
         <div className="text-center cursor-pointer mt-2" onClick={handleToggle}>
           <i
             className={
@@ -212,7 +212,7 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
             title={isExpanded ? "Show less" : "Show more"}
           />
         </div>
-      )}
+      )} */}
     </div>
   );
 };
