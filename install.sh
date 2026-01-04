@@ -279,8 +279,8 @@ install_cpanel() {
     fi
 
     # Install the plugin via cPanel script
-    /usr/local/cpanel/scripts/uninstall_plugin "$APPDIR/$SCRIPT_NAME.tar.gz" >/dev/null 2>&1 || true
-    /usr/local/cpanel/scripts/install_plugin "$APPDIR/$SCRIPT_NAME.tar.gz" || error_exit "Failed to install plugin via install_plugin script"
+    /usr/local/cpanel/scripts/uninstall_plugin "$TEMP_DIR/$SCRIPT_NAME.tar.gz" >/dev/null 2>&1 || true
+    /usr/local/cpanel/scripts/install_plugin "$TEMP_DIR/$SCRIPT_NAME.tar.gz" || error_exit "Failed to install plugin via install_plugin script"
 
     # Re-register to apply updates cleanly
     /usr/local/cpanel/bin/unregister_appconfig "$SCRIPT_NAME" >/dev/null 2>&1 || true
