@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useMemo, useRef } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Hyphenated from "react-hyphen";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 const ContentText = ({ txt, role, shellRuns = [] }) => {
   const [isExpanded, setIsExpanded] = useState(role !== "user");
 
-  // For per-shell-block toggle state
+  // Per-shell-block "show full output" toggle state (only used when output > 10 lines)
   const [openOutputs, setOpenOutputs] = useState(() => new Set());
 
   // Used to assign an increasing index to each encountered ```shell code block
@@ -62,6 +62,21 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
     return out.trimEnd();
   };
 
+  const renderTruncatedLines = (fullText, maxLines, isOpen) => {
+    const safe = typeof fullText === "string" ? fullText : "";
+    const lines = safe.split("\n");
+    const tooLong = lines.length > maxLines;
+
+    const shown =
+      isOpen || !tooLong ? safe : lines.slice(0, maxLines).join("\n");
+
+    return {
+      shown,
+      tooLong,
+      lineCount: lines.length,
+    };
+  };
+
   const CodeBlock = useCallback(
     ({ inline, className, children, ...props }) => {
       const match = /language-(\w+)/.exec(className || "");
@@ -77,22 +92,32 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
           shellRuns?.[idx] ||
           shellRuns?.find((r) => (r?.cmd || "").trim() === cmdText);
 
-        const isOpen = openOutputs.has(idx);
         const resultText = formatResultText(run?.result);
+        const hasAnyResult = run?.result !== null && run?.result !== undefined;
+
+        const isOpen = openOutputs.has(idx);
+        const { shown, tooLong, lineCount } = renderTruncatedLines(
+          resultText || "",
+          10,
+          isOpen
+        );
 
         return (
           <div className="border rounded bg-nosferatu-200 text-black overflow-hidden">
             <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
               <div className="font-semibold text-lg">Shell command</div>
 
-              <button
-                type="button"
-                onClick={() => toggleOutputForIndex(idx)}
-                className="text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition"
-                title="Toggle command output"
-              >
-                {isOpen ? "Hide output" : "Show output"}
-              </button>
+              {/* Button is ONLY for long outputs now */}
+              {tooLong && (
+                <button
+                  type="button"
+                  onClick={() => toggleOutputForIndex(idx)}
+                  className="text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition"
+                  title={isOpen ? "Show less output" : "Show full output"}
+                >
+                  {isOpen ? "Show less" : "Show more"}
+                </button>
+              )}
             </div>
 
             <pre className="p-4 overflow-auto">
@@ -104,23 +129,35 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
               </code>
             </pre>
 
-            {isOpen && (
-              <div className="border-t border-black/10">
-                <div className="px-4 py-2 font-semibold text-lg">
-                  System output
-                </div>
-
-                <pre className="px-4 pb-4 overflow-auto">
-                  <code className="whitespace-pre-wrap break-all">
-                    {resultText || "No output captured yet."}
-                  </code>
-                </pre>
+            {/* Always show output area (nested under the command) */}
+            <div className="border-t border-black/10">
+              <div className="px-4 py-2 font-semibold text-lg">
+                System output
+                {tooLong && (
+                  <span className="ml-2 text-sm font-normal text-black/60">
+                    ({lineCount} lines, showing first 10)
+                  </span>
+                )}
               </div>
-            )}
+
+              <pre className="px-4 pb-4 overflow-auto">
+                <code className="whitespace-pre-wrap break-all">
+                  {!hasAnyResult
+                    ? "No output captured yet."
+                    : shown || "No output captured yet."}
+                </code>
+              </pre>
+
+              {/* Ellipsis when truncated */}
+              {tooLong && !isOpen && (
+                <div className="px-4 pb-4 text-black/70 select-none">…</div>
+              )}
+            </div>
           </div>
         );
       }
 
+      // Normal fenced code blocks (non-shell)
       return !inline && match ? (
         <pre
           className={`border p-4 rounded bg-nosferatu-200 text-black text-xl language-${match[1]} ${className} overflow-auto`}

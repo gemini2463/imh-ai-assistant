@@ -217,11 +217,11 @@ const ChatFloat = ({
 
           for (const cmd of cmdsToRun) {
             const res = await fetchShell(cmd, Config.shellScriptPath);
-            console.log("[shell exec] cmd:", cmd);
+            /*             console.log("[shell exec] cmd:", cmd);
             console.log("[shell exec] raw response:", res);
             console.log("[shell exec] stdout:", res?.received?.stdout);
             console.log("[shell exec] stderr:", res?.received?.stderr);
-            console.log("[shell exec] exitCode:", res?.received?.exitCode);
+            console.log("[shell exec] exitCode:", res?.received?.exitCode); */
             sendPacket.cmdResults.push(res);
             execResults.push({ cmd, result: res });
           }
@@ -231,21 +231,21 @@ const ChatFloat = ({
           const targetIdx = lastShellMsgIndexRef.current;
 
           if (Number.isInteger(targetIdx) && execResults.length > 0) {
-            console.log(
+            /*             console.log(
               "[shell attach] lastShellMsgIndexRef:",
               lastShellMsgIndexRef.current
             );
-            console.log("[shell attach] execResults:", execResults);
+            console.log("[shell attach] execResults:", execResults); */
 
             setMessages((prev) => {
-              console.log("[shell attach] messages length:", prev.length);
+              //console.log("[shell attach] messages length:", prev.length);
               if (!prev[targetIdx]) return prev;
-              console.log(
+              /*               console.log(
                 "[shell attach] targetIdx:",
                 targetIdx,
                 "target msg:",
                 prev[targetIdx]
-              );
+              ); */
               const target = prev[targetIdx];
               const existingRuns = Array.isArray(target.shellRuns)
                 ? target.shellRuns
@@ -258,13 +258,13 @@ const ChatFloat = ({
                 return { ...(r || {}), cmd: got.cmd, result: got.result };
               });
 
-              console.log("[shell attach] mergedRuns:", mergedRuns);
+              //console.log("[shell attach] mergedRuns:", mergedRuns);
               const next = prev.slice();
               next[targetIdx] = { ...target, shellRuns: mergedRuns };
-              console.log(
+              /*               console.log(
                 "[shell attach] final target shellRuns:",
                 next[targetIdx].shellRuns
-              );
+              ); */
 
               return next;
             });
