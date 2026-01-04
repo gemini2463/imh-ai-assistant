@@ -1,40 +1,151 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useMemo, useRef } from "react";
 import Hyphenated from "react-hyphen";
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 
-const ContentText = ({ txt, role }) => {
+const ContentText = ({ txt, role, shellRuns = [] }) => {
   const [isExpanded, setIsExpanded] = useState(role !== "user");
 
-  const handleToggle = useCallback(() => {
-    setIsExpanded(!isExpanded);
-  });
+  // For per-shell-block toggle state
+  const [openOutputs, setOpenOutputs] = useState(() => new Set());
 
-  const CodeBlock = useCallback(({ inline, className, children, ...props }) => {
-    const match = /language-(\w+)/.exec(className || "");
-    return !inline && match ? (
-      <pre
-        className={`border p-4 rounded bg-nosferatu-200 text-black text-xl language-${match[1]} ${className} overflow-auto`}
-      >
+  // Used to assign an increasing index to each encountered ```shell code block
+  const shellBlockCounterRef = useRef(0);
+
+  useEffect(() => {
+    shellBlockCounterRef.current = 0;
+    setOpenOutputs(new Set());
+  }, [txt]);
+
+  const handleToggle = useCallback(() => {
+    setIsExpanded((v) => !v);
+  }, []);
+
+  const toggleOutputForIndex = useCallback((idx) => {
+    setOpenOutputs((prev) => {
+      const next = new Set(prev);
+      if (next.has(idx)) next.delete(idx);
+      else next.add(idx);
+      return next;
+    });
+  }, []);
+
+  const normalizeChildrenText = (children) => {
+    // react-markdown gives children as array; we want a string
+    const raw = Array.isArray(children) ? children.join("") : String(children);
+    return raw.replace(/\n$/, ""); // strip trailing newline often present
+  };
+
+  const formatResultText = (res) => {
+    if (!res) return "";
+
+    if (res.success !== true) {
+      const err = res?.error ? String(res.error) : "Command failed.";
+      return err;
+    }
+
+    const received = res.received || {};
+    const stdout = received.stdout ?? "";
+    const stderr = received.stderr ?? "";
+    const exitCode = received.exitCode;
+
+    let out = "";
+    if (stdout) out += stdout;
+    if (stderr) {
+      if (out && !out.endsWith("\n")) out += "\n";
+      out += `\n[stderr]\n${stderr}`;
+    }
+    if (exitCode !== undefined && exitCode !== null) {
+      if (out && !out.endsWith("\n")) out += "\n";
+      out += `\n[exitCode] ${exitCode}\n`;
+    }
+    return out.trimEnd();
+  };
+
+  const CodeBlock = useCallback(
+    ({ inline, className, children, ...props }) => {
+      const match = /language-(\w+)/.exec(className || "");
+      const lang = match?.[1] || "";
+      const isShellBlock = !inline && lang.toLowerCase() === "shell";
+
+      if (isShellBlock) {
+        const idx = shellBlockCounterRef.current++;
+        const cmdText = normalizeChildrenText(children).trim();
+
+        // Prefer mapping by position (idx), fall back to matching cmd text
+        const run =
+          shellRuns?.[idx] ||
+          shellRuns?.find((r) => (r?.cmd || "").trim() === cmdText);
+
+        const isOpen = openOutputs.has(idx);
+        const resultText = formatResultText(run?.result);
+
+        return (
+          <div className="border rounded bg-nosferatu-200 text-black overflow-hidden">
+            <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
+              <div className="font-semibold text-lg">Shell command</div>
+
+              <button
+                type="button"
+                onClick={() => toggleOutputForIndex(idx)}
+                className="text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition"
+                title="Toggle command output"
+              >
+                {isOpen ? "Hide output" : "Show output"}
+              </button>
+            </div>
+
+            <pre className="p-4 overflow-auto">
+              <code
+                {...props}
+                className={`${className || ""} whitespace-pre-wrap break-all`}
+              >
+                {cmdText}
+              </code>
+            </pre>
+
+            {isOpen && (
+              <div className="border-t border-black/10">
+                <div className="px-4 py-2 font-semibold text-lg">
+                  System output
+                </div>
+
+                <pre className="px-4 pb-4 overflow-auto">
+                  <code className="whitespace-pre-wrap break-all">
+                    {resultText || "No output captured yet."}
+                  </code>
+                </pre>
+              </div>
+            )}
+          </div>
+        );
+      }
+
+      // Default behavior (your original)
+      return !inline && match ? (
+        <pre
+          className={`border p-4 rounded bg-nosferatu-200 text-black text-xl language-${match[1]} ${className} overflow-auto`}
+        >
+          <code
+            {...props}
+            className={`${className} whitespace-pre-wrap break-all`}
+          >
+            {children}
+          </code>
+        </pre>
+      ) : (
         <code
+          className={`${className} bg-nosferatu-200 text-black rounded p-1 text-xl whitespace-pre-wrap break-all`}
           {...props}
-          className={`${className} whitespace-pre-wrap break-all`}
         >
           {children}
         </code>
-      </pre>
-    ) : (
-      <code
-        className={`${className} bg-nosferatu-200 text-black rounded p-1 text-xl whitespace-pre-wrap break-all`}
-        {...props}
-      >
-        {children}
-      </code>
-    );
-  });
+      );
+    },
+    [openOutputs, shellRuns, toggleOutputForIndex]
+  );
 
   const lines = typeof txt === "string" ? txt.split("\n") : [];
-
   const displayedLines = isExpanded ? lines : lines.slice(0, 5);
   const contentToDisplay = displayedLines.join("\n");
 
@@ -53,6 +164,7 @@ const ContentText = ({ txt, role }) => {
           </ReactMarkdown>
         )}
       </Hyphenated>
+
       {lines.length > 5 && (
         <div className="text-center cursor-pointer mt-2" onClick={handleToggle}>
           <i

@@ -100,6 +100,7 @@ const ChatFloat = ({
   const [tempOutput, setTempOutput] = useState("");
   const abortRef = useRef(null);
   const messagesEndRef = useRef(null);
+  const lastShellMsgIndexRef = useRef(null);
 
   // Shell-related state
   const [enableShellCmd, setEnableShellCmd] = useState(
@@ -212,14 +213,42 @@ const ChatFloat = ({
           const cmdsToRun = shellCmd;
           setShellCmd([]);
 
+          const execResults = [];
+
           for (const cmd of cmdsToRun) {
             const res = await fetchShell(cmd, Config.shellScriptPath);
             sendPacket.cmdResults.push(res);
+            execResults.push({ cmd, result: res });
+          }
+
+          // Attach execution results to the previous assistant message that emitted the commands
+          const targetIdx = lastShellMsgIndexRef.current;
+          if (Number.isInteger(targetIdx) && execResults.length > 0) {
+            setMessages((prev) => {
+              if (!prev[targetIdx]) return prev;
+
+              const target = prev[targetIdx];
+              const existingRuns = Array.isArray(target.shellRuns)
+                ? target.shellRuns
+                : [];
+
+              // Fill results by position (best) and keep cmd text
+              const mergedRuns = existingRuns.map((r, i) => {
+                const got = execResults[i];
+                if (!got) return r;
+                return { ...(r || {}), cmd: got.cmd, result: got.result };
+              });
+
+              const next = prev.slice();
+              next[targetIdx] = { ...target, shellRuns: mergedRuns };
+              return next;
+            });
           }
         }
 
         let response;
         let output = "";
+        const commandsThisTurn = [];
 
         if (streamingEnabled) {
           response = await fetch(endPath, {
@@ -301,11 +330,11 @@ const ChatFloat = ({
                 cmdState.inCommand = false;
 
                 const fullCmd = (cmdState.buf || "").trim();
+                commandsThisTurn.push(fullCmd);
+
                 if (fullCmd.length > 0) {
-                  // Keep existing behavior: queue command for execution
                   setShellCmd((prev) => prev.concat(fullCmd));
 
-                  // NEW: show the command as a nice Markdown code block in the assistant output
                   if (output && !output.endsWith("\n")) output += "\n";
                   output += `\n\`\`\`shell\n${fullCmd}\n\`\`\`\n`;
                   setTempOutput(output);
@@ -318,7 +347,11 @@ const ChatFloat = ({
 
           setPending(false);
           const durTime = ((Date.now() - startTime) / 1000).toFixed(2);
-          return [toTextArray(output || "No response."), durTime];
+          return [
+            toTextArray(output || "No response."),
+            durTime,
+            commandsThisTurn,
+          ];
         } else {
           response = await axios.post(endPath, sendPacket, {
             headers: {
@@ -346,22 +379,18 @@ const ChatFloat = ({
                 }
                 continue;
               }
-
+              const commandsThisTurn = [];
               if (out.type === "shell_call") {
                 const commands = out?.action?.commands;
 
                 if (Array.isArray(commands) && commands.length > 0) {
                   for (const cmd of commands) {
                     const cmdStr = String(cmd);
-
-                    // NEW: render as a fenced code block
                     parts.push(`\`\`\`shell\n${cmdStr}\n\`\`\``);
-
-                    // Keep existing behavior: queue command for execution
                     setShellCmd((prev) => prev.concat(cmdStr));
+                    commandsThisTurn.push(cmdStr);
                   }
                 }
-
                 continue;
               }
 
@@ -384,7 +413,7 @@ const ChatFloat = ({
           }
 
           setPending(false);
-          return [toTextArray(outputText), durTime];
+          return [toTextArray(outputText), durTime, commandsThisTurn];
         }
       } catch (err) {
         console.error("ChatFloat fetch error:", err);
@@ -424,22 +453,53 @@ const ChatFloat = ({
         };
         setMessages((prev) => prev.concat(userMsg));
 
-        const [assistantContentArray] = await fetchData(trimmed);
+        const [assistantContentArray, _dur, commandsThisTurn] =
+          await fetchData(trimmed);
 
         const assistantMsg = {
           role: "assistant",
           content: assistantContentArray,
+          // Create “shellRuns” placeholders so the UI can show a button immediately.
+          // Results get filled in later when the commands execute.
+          shellRuns: Array.isArray(commandsThisTurn)
+            ? commandsThisTurn.map((cmd) => ({ cmd, result: null }))
+            : [],
         };
 
-        setMessages((prev) => prev.concat(assistantMsg));
+        setMessages((prev) => {
+          const next = prev.concat(assistantMsg);
+
+          // Remember which assistant message emitted commands so we can attach results later
+          if (assistantMsg.shellRuns.length > 0) {
+            lastShellMsgIndexRef.current = next.length - 1;
+          }
+
+          return next;
+        });
+
         setTempOutput("");
       } else {
-        const [assistantContentArray] = await fetchData("");
+        const [assistantContentArray, _dur, commandsThisTurn] =
+          await fetchData("");
+
         const assistantMsg = {
           role: "assistant",
           content: assistantContentArray,
+          shellRuns: Array.isArray(commandsThisTurn)
+            ? commandsThisTurn.map((cmd) => ({ cmd, result: null }))
+            : [],
         };
-        setMessages((prev) => prev.concat(assistantMsg));
+
+        setMessages((prev) => {
+          const next = prev.concat(assistantMsg);
+
+          if (assistantMsg.shellRuns.length > 0) {
+            lastShellMsgIndexRef.current = next.length - 1;
+          }
+
+          return next;
+        });
+
         setTempOutput("");
       }
     },
@@ -612,7 +672,11 @@ const ChatFloat = ({
                 className="max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto border border-white/10 bg-nosferatu-300 text-black text-3xl"
                 style={{ fontFamily: "inherit", fontStyle: "normal" }}
               >
-                <ContentText role="assistant" txt={txt} />
+                <ContentText
+                  role="assistant"
+                  txt={txt}
+                  shellRuns={msg.shellRuns || []}
+                />
               </div>
             );
           }

@@ -761,6 +761,9 @@ body {
 .border-none {
   border-style: none;
 }
+.border-black\/10 {
+  border-color: #0000001a;
+}
 .border-gray-800 {
   --tw-border-opacity: 1;
   border-color: rgb(31 41 55 / var(--tw-border-opacity, 1));
@@ -780,6 +783,9 @@ body {
 .bg-black {
   --tw-bg-opacity: 1;
   background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+.bg-black\/10 {
+  background-color: #0000001a;
 }
 .bg-black\/95 {
   background-color: #000000f2;
@@ -909,6 +915,10 @@ body {
 }
 .text-\[16px\] {
   font-size: 16px;
+}
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 .text-xl {
   font-size: 1.25rem;
@@ -1109,6 +1119,9 @@ table.fixed-layout {
 .hover\:border-gray-900:hover {
   --tw-border-opacity: 1;
   border-color: rgb(17 24 39 / var(--tw-border-opacity, 1));
+}
+.hover\:bg-black\/20:hover {
+  background-color: #0003;
 }
 .hover\:bg-gray-200:hover {
   --tw-bg-opacity: 1;
