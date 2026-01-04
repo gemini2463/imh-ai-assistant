@@ -533,6 +533,7 @@ const ChatFloat = ({
             type="button"
             onClick={handleResetChat}
             style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            title="Reset chat"
             className="
               text-[16px] px-2 py-1
               h-14 w-14 flex items-center justify-center
@@ -544,7 +545,7 @@ const ChatFloat = ({
           >
             <img
               src="imh-ai-assistant.png"
-              alt="AI Assistant"
+              alt="Reset Chat"
               className="imh-title-img"
             />
           </button>
