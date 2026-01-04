@@ -86,227 +86,107 @@ if ($rawInput !== '') {
       json_response(['success' => false, 'error' => 'Invalid command'], 422);
   }
 
-/**
- * Split a command string into argv similar to a shell, but we will NOT execute via a shell.
- * Supports basic quotes. Rejects shell metacharacters entirely.
- */
-function parse_command_argv(string $cmd): array
-{
-    $cmd = trim($cmd);
-    if ($cmd === '') return [];
+  // Runs a shell command safely with a timeout, preventing hangs.
 
-    // Reject shell metacharacters that only make sense with a shell interpreter.
-    // This is a strong guardrail. Adjust only if you truly need some of these.
-    $forbidden = ['|','&',';','<','>','(',')','{','}','[',']','*','?','!','`',"\n","\r"];
-    foreach ($forbidden as $ch) {
-        if (str_contains($cmd, $ch)) {
-            throw new RuntimeException("Forbidden shell operator detected.");
-        }
-    }
-    // Also reject common expansions
-    if (preg_match('/\$\(|\$\{|\$\w+/', $cmd)) {
-        throw new RuntimeException("Forbidden shell expansion detected.");
-    }
+  function safe_shell_exec(string $command, int $timeout = 3, int $maxBytes = 200000): array
+  {
+      static $timeout_bin = null;
+      if ($timeout_bin === null) {
+          $found = trim(shell_exec('command -v timeout 2>/dev/null') ?: '');
+          $timeout_bin = $found !== '' ? $found : false;
+      }
 
-    // Tokenize respecting simple single/double quotes.
-    preg_match_all('/"([^"\\\\]*(?:\\\\.[^"\\\\]*)*)"|\'([^\']*)\'|(\S+)/', $cmd, $m);
-    $argv = [];
-    foreach ($m[0] as $i => $_token) {
-        if ($m[1][$i] !== '') {
-            $argv[] = stripcslashes($m[1][$i]); // double-quoted
-        } elseif ($m[2][$i] !== '') {
-            $argv[] = $m[2][$i]; // single-quoted
-        } else {
-            $argv[] = $m[3][$i]; // bare
-        }
-    }
-    return $argv;
-}
+      if ($timeout_bin) {
+          // Note: stderr/exitCode not captured in this mode (as in your original)
+          $cmd = escapeshellarg($timeout_bin) . ' ' . (int)$timeout . 's ' . $command;
+          $out = shell_exec($cmd);
+          $stdout = is_string($out) ? $out : '';
+          if (strlen($stdout) > $maxBytes) $stdout = substr($stdout, 0, $maxBytes) . "\n[output truncated]";
+          return ['stdout' => $stdout, 'stderr' => '', 'exitCode' => -1, 'timedOut' => false];
+      }
 
-/**
- * Enforce an allowlist of commands and (optionally) restrict args.
- * Customize $allowed to the commands you truly need.
- */
-function authorize_command(array $argv): array
-{
-    if (count($argv) === 0) {
-        throw new RuntimeException("Empty command.");
-    }
+      $descriptorspec = [
+          1 => ['pipe', 'w'],
+          2 => ['pipe', 'w'],
+      ];
 
-    // Map command -> absolute path (recommended) OR true to resolve via PATH.
-    // Using absolute paths reduces “PATH hijack” issues.
-    $allowed = [
-        'pwd'    => '/bin/pwd',
-        'ls'     => '/bin/ls',
-        'stat'   => '/usr/bin/stat',
-        'file'   => '/usr/bin/file',
+      $process = proc_open($command, $descriptorspec, $pipes);
+      if (!is_resource($process)) {
+          return ['stdout' => '', 'stderr' => 'Failed to start process', 'exitCode' => -1, 'timedOut' => false];
+      }
 
-        'cat'    => '/bin/cat',
-        'head'   => '/usr/bin/head',
-        'tail'   => '/usr/bin/tail',
-        'grep'   => '/bin/grep',
-        'wc'     => '/usr/bin/wc',
-        'sort'   => '/usr/bin/sort',
-        'uniq'   => '/usr/bin/uniq',
-        'cut'    => '/usr/bin/cut',
+      stream_set_blocking($pipes[1], false);
+      stream_set_blocking($pipes[2], false);
 
-        'du'     => '/usr/bin/du',
-        'df'     => '/bin/df',
+      $output = '';
+      $stderr = '';
+      $start = microtime(true);
+      $timedOut = false;
 
-        'whoami' => '/usr/bin/whoami',
-        'id'     => '/usr/bin/id',
-        'date'   => '/bin/date',
-        'uname'  => '/bin/uname',
-        'uptime' => '/usr/bin/uptime',
+      while (true) {
+          $status = proc_get_status($process);
+          $running = !empty($status['running']);
 
-        'curl' => '/usr/bin/curl',
-        'wget' => '/usr/bin/wget',
-        'dig'  => '/usr/bin/dig',
+          $read = [];
+          if (!feof($pipes[1])) $read[] = $pipes[1];
+          if (!feof($pipes[2])) $read[] = $pipes[2];
 
-        // Optional (only if you add the extra arg restrictions below):
-        // 'find' => '/usr/bin/find',
-        // 'php'  => '/usr/bin/php',
-    ];
+          if (!$running && empty($read)) break;
 
-    $cmd = $argv[0];
+          $elapsed = microtime(true) - $start;
+          if ($elapsed >= $timeout) {
+              $timedOut = true;
+              proc_terminate($process);
+              break;
+          }
 
-    if (!array_key_exists($cmd, $allowed)) {
-        throw new RuntimeException("Command not permitted.");
-    }
+          $write = null; $except = null;
+          if (!empty($read)) {
+              // Wait up to 200ms for output
+              @stream_select($read, $write, $except, 0, 200000);
+              foreach ($read as $r) {
+                  $chunk = stream_get_contents($r);
+                  if ($chunk === false || $chunk === '') continue;
 
-    // Optional: restrict risky flags for certain tools
-    // Example: prevent "ps auxfww" if you don't want wide output, etc.
-    // Example: disallow grep reading binary, or awk executing system() isn't possible without a shell anyway.
+                  if ($r === $pipes[1]) $output .= $chunk;
+                  else $stderr .= $chunk;
 
-    // Replace argv[0] with absolute binary path
-    $argv[0] = $allowed[$cmd];
+                  if (strlen($output) + strlen($stderr) > $maxBytes) {
+                      $timedOut = true; // treat as forced stop
+                      proc_terminate($process);
+                      break 2;
+                  }
+              }
+          } else {
+              usleep(20000);
+          }
+      }
 
-    // Optional: restrict file paths to within the user's HOME
-    // This is strongly recommended in shared hosting/cPanel contexts.
-    $home = getenv('HOME') ?: '';
+      foreach ($pipes as $pipe) {
+          fclose($pipe);
+      }
 
-    $homePrefix = $home !== '' ? rtrim($home, '/') . '/' : '';
+      $status = proc_get_status($process);
+      $exitCode = isset($status['exitcode']) && $status['exitcode'] !== -1 ? (int)$status['exitcode'] : -1;
 
-    $blockedPrefixes = [
-        '/etc/', '/proc/', '/sys/', '/dev/', '/run/', '/var/log/', '/root/', '/home/', // block absolute sensitive areas
-    ];
+      proc_close($process);
 
-    for ($i = 1; $i < count($argv); $i++) {
-        $a = $argv[$i];
+      if (strlen($output) > $maxBytes) $output = substr($output, 0, $maxBytes) . "\n[output truncated]";
+      if (strlen($stderr) > $maxBytes) $stderr = substr($stderr, 0, $maxBytes) . "\n[output truncated]";
 
-        // Skip flags
-        if ($a === '' || $a[0] === '-') continue;
+      return ['stdout' => $output, 'stderr' => $stderr, 'exitCode' => $exitCode, 'timedOut' => $timedOut];
+  }
 
-        // If it looks like a path, resolve and jail it
-        if (preg_match('#^/|^\./|^\.\./#', $a)) {
-            $resolved = realpath($a);
-            if ($resolved === false) {
-                throw new RuntimeException("Path not found.");
-            }
+  // Find local timezone and set it for date functions
 
-            $resolvedWithSlash = rtrim($resolved, '/') . '/';
-
-            // Block sensitive prefixes even if something weird happens
-            foreach ($blockedPrefixes as $bp) {
-                if (str_starts_with($resolvedWithSlash, $bp)) {
-                    throw new RuntimeException("Path not permitted.");
-                }
-            }
-
-            // Hard jail to $HOME (this is the main control in shared hosting)
-            if ($homePrefix !== '' && !str_starts_with($resolvedWithSlash, $homePrefix)) {
-                throw new RuntimeException("Path not permitted.");
-            }
-        }
-    }
-
-    if ($home !== '') {
-        for ($i = 1; $i < count($argv); $i++) {
-            // If an argument looks like a path, enforce it stays under $home.
-            // Heuristic: starts with / or ./ or ../
-            if (preg_match('#^/|^\./|^\.\./#', $argv[$i])) {
-                $resolved = realpath($argv[$i]);
-                if ($resolved === false || !str_starts_with($resolved, rtrim($home, '/') . '/')) {
-                    throw new RuntimeException("Path not permitted.");
-                }
-            }
-        }
-    }
-
-    return $argv;
-}
-
-/**
- * Execute argv without a shell, with timeout and output cap.
- */
-function exec_argv(array $argv, int $timeout = 3, int $maxBytes = 200000): array
-{
-    $descriptorspec = [
-        1 => ['pipe', 'w'],
-        2 => ['pipe', 'w'],
-    ];
-
-    // PHP supports array command to bypass shell (best practice).
-    $process = proc_open($argv, $descriptorspec, $pipes, null, null, ['bypass_shell' => true]);
-    if (!is_resource($process)) {
-        return ['stdout' => '', 'stderr' => 'Failed to start process', 'exitCode' => -1, 'timedOut' => false];
-    }
-
-    stream_set_blocking($pipes[1], false);
-    stream_set_blocking($pipes[2], false);
-
-    $stdout = '';
-    $stderr = '';
-    $start = microtime(true);
-    $timedOut = false;
-
-    while (true) {
-        $status = proc_get_status($process);
-        $running = !empty($status['running']);
-
-        $read = [];
-        if (!feof($pipes[1])) $read[] = $pipes[1];
-        if (!feof($pipes[2])) $read[] = $pipes[2];
-
-        if (!$running && empty($read)) break;
-
-        if ((microtime(true) - $start) >= $timeout) {
-            $timedOut = true;
-            proc_terminate($process);
-            break;
-        }
-
-        $write = null; $except = null;
-        if (!empty($read)) {
-            @stream_select($read, $write, $except, 0, 200000);
-            foreach ($read as $r) {
-                $chunk = stream_get_contents($r);
-                if ($chunk === false || $chunk === '') continue;
-                if ($r === $pipes[1]) $stdout .= $chunk;
-                else $stderr .= $chunk;
-
-                if (strlen($stdout) + strlen($stderr) > $maxBytes) {
-                    $timedOut = true;
-                    proc_terminate($process);
-                    break 2;
-                }
-            }
-        } else {
-            usleep(20000);
-        }
-    }
-
-    foreach ($pipes as $pipe) fclose($pipe);
-
-    $status = proc_get_status($process);
-    $exitCode = isset($status['exitcode']) && $status['exitcode'] !== -1 ? (int)$status['exitcode'] : -1;
-    proc_close($process);
-
-    if (strlen($stdout) > $maxBytes) $stdout = substr($stdout, 0, $maxBytes) . "\n[output truncated]";
-    if (strlen($stderr) > $maxBytes) $stderr = substr($stderr, 0, $maxBytes) . "\n[output truncated]";
-
-    return ['stdout' => $stdout, 'stderr' => $stderr, 'exitCode' => $exitCode, 'timedOut' => $timedOut];
-}
+  $server_tz = trim(shell_exec('date +%Z')); // e.g. "EDT"
+  $tz_name = @timezone_name_from_abbr($server_tz);
+  if ($tz_name !== false) {
+    date_default_timezone_set($tz_name);
+  } else {
+    // fallback: use system-configured timezone
+    date_default_timezone_set(@date_default_timezone_get());
+  }
 
   if (JSON_ERROR_NONE !== json_last_error()) {
       json_response([
@@ -332,14 +212,7 @@ function exec_argv(array $argv, int $timeout = 3, int $maxBytes = 200000): array
       ], 422);
   }
 
-    try {
-        $argv = parse_command_argv($shellCmd);
-        $argv = authorize_command($argv);
-    } catch (Throwable $e) {
-        json_response(['success' => false, 'error' => 'Command rejected: ' . $e->getMessage()], 403);
-    }
-
-    $makeItSo = exec_argv($argv, 3, 200000);
+  $makeItSo = safe_shell_exec($shellCmd);
 
   if (!is_array($makeItSo) ||
       !array_key_exists('stdout', $makeItSo) ||
