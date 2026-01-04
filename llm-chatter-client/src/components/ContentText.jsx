@@ -107,17 +107,16 @@ const ContentText = ({ txt, role, shellRuns = [] }) => {
             <div className="flex items-center justify-between px-4 py-2 border-b border-black/10">
               <div className="font-semibold text-lg">Shell command</div>
 
-              {/* Button is ONLY for long outputs now */}
-              {tooLong && (
+              {/*               {tooLong && (
                 <button
                   type="button"
                   onClick={() => toggleOutputForIndex(idx)}
                   className="text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition"
                   title={isOpen ? "Show less output" : "Show full output"}
                 >
-                  {/* {isOpen ? "Show less" : "Show more"} */}
-                </button>
-              )}
+                   {isOpen ? "Show less" : "Show more"}
+                </button> 
+              )} */}
             </div>
 
             <pre className="p-4 overflow-auto">

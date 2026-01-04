@@ -518,7 +518,7 @@ var jv;
 function k6() {
   return (jv || ((jv = 1), (kf.exports = S6())), kf.exports);
 }
-var rt = k6(),
+var nt = k6(),
   ct = Eu();
 const E6 = yo(ct);
 var Ns = {},
@@ -1645,7 +1645,7 @@ function C6() {
     );
   }
   var Ce = null,
-    nt = null,
+    rt = null,
     Fe = null;
   function He(o) {
     if ((o = ja(o))) {
@@ -1655,13 +1655,13 @@ function C6() {
     }
   }
   function Mt(o) {
-    nt ? (Fe ? Fe.push(o) : (Fe = [o])) : (nt = o);
+    rt ? (Fe ? Fe.push(o) : (Fe = [o])) : (rt = o);
   }
   function Ne() {
-    if (nt) {
-      var o = nt,
+    if (rt) {
+      var o = rt,
         h = Fe;
-      if (((Fe = nt = null), He(o), h)) for (o = 0; o < h.length; o++) He(h[o]);
+      if (((Fe = rt = null), He(o), h)) for (o = 0; o < h.length; o++) He(h[o]);
     }
   }
   function $e(o, h) {
@@ -1675,7 +1675,7 @@ function C6() {
     try {
       return $e(o, h, k);
     } finally {
-      ((Te = !1), (nt !== null || Fe !== null) && (_t(), Ne()));
+      ((Te = !1), (rt !== null || Fe !== null) && (_t(), Ne()));
     }
   }
   function gt(o, h) {
@@ -10280,9 +10280,9 @@ Rd.write = function (r, s, l, u, w, i) {
       const tt = Math.min(fe, ke),
         Ee = this.slice(ae, Se),
         Ce = N.slice($, Y);
-      for (let nt = 0; nt < tt; ++nt)
-        if (Ee[nt] !== Ce[nt]) {
-          ((fe = Ee[nt]), (ke = Ce[nt]));
+      for (let rt = 0; rt < tt; ++rt)
+        if (Ee[rt] !== Ce[rt]) {
+          ((fe = Ee[rt]), (ke = Ce[rt]));
           break;
         }
       return fe < ke ? -1 : ke < fe ? 1 : 0;
@@ -10330,8 +10330,8 @@ Rd.write = function (r, s, l, u, w, i) {
       if (V.length < 2 || N.length < 2) return -1;
       ((Se = 2), (fe /= 2), (ke /= 2), ($ /= 2));
     }
-    function tt(Ce, nt) {
-      return Se === 1 ? Ce[nt] : Ce.readUInt16BE(nt * Se);
+    function tt(Ce, rt) {
+      return Se === 1 ? Ce[rt] : Ce.readUInt16BE(rt * Se);
     }
     let Ee;
     if (ae) {
@@ -10343,8 +10343,8 @@ Rd.write = function (r, s, l, u, w, i) {
     } else
       for ($ + ke > fe && ($ = fe - ke), Ee = $; Ee >= 0; Ee--) {
         let Ce = !0;
-        for (let nt = 0; nt < ke; nt++)
-          if (tt(V, Ee + nt) !== tt(N, nt)) {
+        for (let rt = 0; rt < ke; rt++)
+          if (tt(V, Ee + rt) !== tt(N, rt)) {
             Ce = !1;
             break;
           }
@@ -10451,7 +10451,7 @@ Rd.write = function (r, s, l, u, w, i) {
       let fe = null,
         ke = Se > 239 ? 4 : Se > 223 ? 3 : Se > 191 ? 2 : 1;
       if (ae + ke <= $) {
-        let tt, Ee, Ce, nt;
+        let tt, Ee, Ce, rt;
         switch (ke) {
           case 1:
             Se < 128 && (fe = Se);
@@ -10459,15 +10459,15 @@ Rd.write = function (r, s, l, u, w, i) {
           case 2:
             ((tt = V[ae + 1]),
               (tt & 192) === 128 &&
-                ((nt = ((Se & 31) << 6) | (tt & 63)), nt > 127 && (fe = nt)));
+                ((rt = ((Se & 31) << 6) | (tt & 63)), rt > 127 && (fe = rt)));
             break;
           case 3:
             ((tt = V[ae + 1]),
               (Ee = V[ae + 2]),
               (tt & 192) === 128 &&
                 (Ee & 192) === 128 &&
-                ((nt = ((Se & 15) << 12) | ((tt & 63) << 6) | (Ee & 63)),
-                nt > 2047 && (nt < 55296 || nt > 57343) && (fe = nt)));
+                ((rt = ((Se & 15) << 12) | ((tt & 63) << 6) | (Ee & 63)),
+                rt > 2047 && (rt < 55296 || rt > 57343) && (fe = rt)));
             break;
           case 4:
             ((tt = V[ae + 1]),
@@ -10476,12 +10476,12 @@ Rd.write = function (r, s, l, u, w, i) {
               (tt & 192) === 128 &&
                 (Ee & 192) === 128 &&
                 (Ce & 192) === 128 &&
-                ((nt =
+                ((rt =
                   ((Se & 15) << 18) |
                   ((tt & 63) << 12) |
                   ((Ee & 63) << 6) |
                   (Ce & 63)),
-                nt > 65535 && nt < 1114112 && (fe = nt)));
+                rt > 65535 && rt < 1114112 && (fe = rt)));
         }
       }
       (fe === null
@@ -27964,11 +27964,11 @@ function Qk(r, s) {
       }),
     Pd(r, M),
     K9(r, {
-      Fragment: rt.Fragment,
+      Fragment: nt.Fragment,
       components: w,
       ignoreInvalidStyle: !0,
-      jsx: rt.jsx,
-      jsxs: rt.jsxs,
+      jsx: nt.jsx,
+      jsxs: nt.jsxs,
       passKeys: !0,
       passNode: !0,
     })
@@ -28095,60 +28095,50 @@ ${O}`)),
               S = ne?.result !== null && ne?.result !== void 0,
               e = i.has(ue),
               { shown: n, tooLong: a, lineCount: f } = _(ie || "", 10, e);
-            return rt.jsxs("div", {
+            return nt.jsxs("div", {
               className:
                 "border rounded bg-nosferatu-200 text-black overflow-hidden mb-4",
               children: [
-                rt.jsxs("div", {
+                nt.jsx("div", {
                   className:
                     "flex items-center justify-between px-4 py-2 border-b border-black/10",
-                  children: [
-                    rt.jsx("div", {
-                      className: "font-semibold text-lg",
-                      children: "Shell command",
-                    }),
-                    a &&
-                      rt.jsx("button", {
-                        type: "button",
-                        onClick: () => x(ue),
-                        className:
-                          "text-lg px-3 py-1 rounded bg-black/10 hover:bg-black/20 transition",
-                        title: e ? "Show less output" : "Show full output",
-                      }),
-                  ],
+                  children: nt.jsx("div", {
+                    className: "font-semibold text-lg",
+                    children: "Shell command",
+                  }),
                 }),
-                rt.jsx("pre", {
+                nt.jsx("pre", {
                   className: "p-4 overflow-auto",
-                  children: rt.jsx("code", {
+                  children: nt.jsx("code", {
                     ...O,
                     className: `${F || ""} whitespace-pre-wrap break-all`,
                     children: de,
                   }),
                 }),
-                rt.jsxs("div", {
+                nt.jsxs("div", {
                   className: "border-t border-black/10",
                   children: [
-                    rt.jsxs("div", {
+                    nt.jsxs("div", {
                       className: "px-4 py-2 font-semibold text-lg",
                       children: [
                         "System output",
                         a &&
-                          rt.jsxs("span", {
+                          nt.jsxs("span", {
                             className: "ml-2 text-sm font-normal text-black/60",
                             children: ["(", f, " lines, showing first 10)"],
                           }),
                       ],
                     }),
-                    rt.jsx("pre", {
+                    nt.jsx("pre", {
                       className: "px-4 pb-4 overflow-auto",
-                      children: rt.jsx("code", {
+                      children: nt.jsx("code", {
                         className: "whitespace-pre-wrap break-all",
                         children: (S && n) || "No output captured.",
                       }),
                     }),
                     a &&
                       !e &&
-                      rt.jsx("div", {
+                      nt.jsx("div", {
                         className: "px-4 pb-4 text-black/70 select-none",
                         children: "…",
                       }),
@@ -28158,15 +28148,15 @@ ${O}`)),
             });
           }
           return !P && U
-            ? rt.jsx("pre", {
+            ? nt.jsx("pre", {
                 className: `border p-4 rounded bg-nosferatu-200 text-black text-xl language-${U[1]} ${F} overflow-auto`,
-                children: rt.jsx("code", {
+                children: nt.jsx("code", {
                   ...O,
                   className: `${F} whitespace-pre-wrap break-all`,
                   children: D,
                 }),
               })
-            : rt.jsx("code", {
+            : nt.jsx("code", {
                 className: `${F} bg-nosferatu-200 text-black rounded p-1 text-xl whitespace-pre-wrap break-all`,
                 ...O,
                 children: D,
@@ -28181,13 +28171,13 @@ ${O}`)),
           : [],
       I = (u ? A : A.slice(0, 5)).join(`
 `);
-    return rt.jsx("div", {
+    return nt.jsx("div", {
       className: "text-2xl",
-      children: rt.jsx(RM, {
+      children: nt.jsx(RM, {
         children:
           s === "user"
-            ? rt.jsx("div", { className: "break-all", children: I })
-            : rt.jsx(Jk, {
+            ? nt.jsx("div", { className: "break-all", children: I })
+            : nt.jsx(Jk, {
                 remarkPlugins: [y9],
                 components: { code: E },
                 className: "markdown text-black",
@@ -28200,10 +28190,10 @@ ${O}`)),
   rE = ["Low", "Medium", "High"],
   ag = ({ label: r, value: s, options: l, onChange: u }) => {
     const [w, i] = ct.useState(!1);
-    return rt.jsxs("div", {
+    return nt.jsxs("div", {
       className: "relative text-xl",
       children: [
-        rt.jsxs("button", {
+        nt.jsxs("button", {
           type: "button",
           onClick: () => i((p) => !p),
           className: `
@@ -28218,15 +28208,15 @@ ${O}`)),
           hover:border-gray-800
         `,
           children: [
-            rt.jsxs("span", { className: "truncate", children: [r, ": ", s] }),
-            rt.jsx("span", {
+            nt.jsxs("span", { className: "truncate", children: [r, ": ", s] }),
+            nt.jsx("span", {
               className: "ml-auto text-[10px] text-white/60",
               children: "▼",
             }),
           ],
         }),
         w &&
-          rt.jsx("div", {
+          nt.jsx("div", {
             className: `
             relative left-0 mt-1 w-max
             min-w-full
@@ -28236,13 +28226,13 @@ ${O}`)),
             shadow-lg
             z-[2147483647]
           `,
-            children: rt.jsx("ul", {
+            children: nt.jsx("ul", {
               className: "py-1 text-xl",
               children: l.map((p) =>
-                rt.jsx(
+                nt.jsx(
                   "li",
                   {
-                    children: rt.jsxs("button", {
+                    children: nt.jsxs("button", {
                       type: "button",
                       onClick: () => {
                         (u(p), i(!1));
@@ -28606,7 +28596,7 @@ ${Qe}
             e.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
           } catch {}
       }, [O, K, ne, r]),
-      rt.jsxs("div", {
+      nt.jsxs("div", {
         className: `
       flex flex-col
       mt-4
@@ -28623,20 +28613,20 @@ ${Qe}
       ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
     `,
         children: [
-          rt.jsxs("div", {
+          nt.jsxs("div", {
             className:
               "flex items-center justify-between px-4 pt-3 pb-2 bg-gray-600/10",
             children: [
-              rt.jsxs("div", {
+              nt.jsxs("div", {
                 className: "flex gap-2 items-center",
                 children: [
-                  rt.jsx(ag, {
+                  nt.jsx(ag, {
                     label: "Reasoning",
                     value: A,
                     options: tE,
                     onChange: C,
                   }),
-                  rt.jsx(ag, {
+                  nt.jsx(ag, {
                     label: "Verbosity",
                     value: I,
                     options: rE,
@@ -28644,11 +28634,11 @@ ${Qe}
                   }),
                 ],
               }),
-              rt.jsxs("div", {
+              nt.jsxs("div", {
                 className: "flex items-center gap-2",
                 children: [
                   _ &&
-                    rt.jsx("button", {
+                    nt.jsx("button", {
                       type: "button",
                       onClick: E,
                       className: `
@@ -28658,7 +28648,7 @@ ${Qe}
                   `,
                       children: "Log out",
                     }),
-                  rt.jsx("button", {
+                  nt.jsx("button", {
                     type: "button",
                     onClick: t,
                     style: { fontFamily: "'Playfair Display', Georgia, serif" },
@@ -28671,7 +28661,7 @@ ${Qe}
               hover:bg-gray-200 hover:text-black
               transition
               text-white`,
-                    children: rt.jsx("img", {
+                    children: nt.jsx("img", {
                       src: "imh-ai-assistant.png",
                       alt: "Reset Chat",
                       className: "imh-title-img",
@@ -28681,7 +28671,7 @@ ${Qe}
               }),
             ],
           }),
-          rt.jsxs("div", {
+          nt.jsxs("div", {
             className:
               "px-5 pt-3 pb-3 space-y-6 mt-4 overflow-y-auto flex-1 text-xl",
             style: {
@@ -28691,7 +28681,7 @@ ${Qe}
             children: [
               O.length === 0 &&
                 !K &&
-                rt.jsx("h2", {
+                nt.jsx("h2", {
                   className: "text-4xl font-semibold",
                   style: {
                     fontFamily: "'Playfair Display', Georgia, serif",
@@ -28702,13 +28692,13 @@ ${Qe}
               O.map((X, re) => {
                 const Re = T(X.content);
                 return X.role === "assistant"
-                  ? rt.jsx(
+                  ? nt.jsx(
                       "div",
                       {
                         className:
                           "max-w-[90%] rounded-2xl px-3 py-2 mt-2 mb-2 mr-auto border border-white/10 bg-nosferatu-300 text-black text-3xl",
                         style: { fontFamily: "inherit", fontStyle: "normal" },
-                        children: rt.jsx(ig, {
+                        children: nt.jsx(ig, {
                           role: "assistant",
                           txt: Re,
                           shellRuns: X.shellRuns || [],
@@ -28716,7 +28706,7 @@ ${Qe}
                       },
                       re
                     )
-                  : rt.jsx(
+                  : nt.jsx(
                       "div",
                       {
                         className:
@@ -28728,21 +28718,21 @@ ${Qe}
                     );
               }),
               K &&
-                rt.jsx("div", {
+                nt.jsx("div", {
                   className:
                     "max-w-[90%] rounded-2xl px-3 py-2 p-4 mt-2 mb-2 mr-auto border border-white/50 bg-nosferatu-300 text-black text-3xl",
-                  children: rt.jsx(ig, {
+                  children: nt.jsx(ig, {
                     role: "assistant",
                     txt: ne || "Thinking...",
                   }),
                 }),
-              rt.jsx("div", { ref: e }),
+              nt.jsx("div", { ref: e }),
             ],
           }),
-          rt.jsxs("div", {
+          nt.jsxs("div", {
             className: "px-5 pt-2 pb-4 space-y-6 border-t border-white/10",
             children: [
-              rt.jsxs("div", {
+              nt.jsxs("div", {
                 className: `
             rounded-2xl
             bg-gray-900
@@ -28756,7 +28746,7 @@ ${Qe}
             transition
           `,
                 children: [
-                  rt.jsx("input", {
+                  nt.jsx("input", {
                     type: "text",
                     value: F,
                     onChange: (X) => D(X.target.value),
@@ -28769,7 +28759,7 @@ ${Qe}
             `,
                     onKeyDown: H,
                   }),
-                  rt.jsx("button", {
+                  nt.jsx("button", {
                     type: "button",
                     onClick: q,
                     className: `
@@ -28778,16 +28768,16 @@ ${Qe}
               transition
               ${F.trim() ? "bg-gray-400 text-black hover:bg-gray-500" : "bg-white/40 text-white cursor-default"}
             `,
-                    children: rt.jsx("i", {
+                    children: nt.jsx("i", {
                       className: "fas fa-arrow-up text-xl",
                     }),
                   }),
                 ],
               }),
-              rt.jsx("div", {
+              nt.jsx("div", {
                 className: "flex flex-wrap gap-4 pt-2",
                 children: Hn.floatingConfig.quickPrompts.map((X) =>
-                  rt.jsx(
+                  nt.jsx(
                     "button",
                     {
                       type: "button",
@@ -28803,7 +28793,7 @@ ${Qe}
                   transition
                 `,
                       onClick: () => D(X),
-                      children: rt.jsx("span", { children: X }),
+                      children: nt.jsx("span", { children: X }),
                     },
                     X
                   )
@@ -37856,9 +37846,9 @@ function yb() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -40189,9 +40179,9 @@ function DA() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -44624,7 +44614,7 @@ function fp() {
               tt = ke & 8191,
               Ee = ke >>> 13,
               Ce = b[2] | 0,
-              nt = Ce & 8191,
+              rt = Ce & 8191,
               Fe = Ce >>> 13,
               He = b[3] | 0,
               Mt = He & 8191,
@@ -44675,9 +44665,9 @@ function fp() {
               (B = (B + Math.imul(H, Ee)) | 0),
               (B = (B + Math.imul(X, tt)) | 0),
               (T = (T + Math.imul(X, Ee)) | 0),
-              (c = (c + Math.imul(ee, nt)) | 0),
+              (c = (c + Math.imul(ee, rt)) | 0),
               (B = (B + Math.imul(ee, Fe)) | 0),
-              (B = (B + Math.imul(oe, nt)) | 0),
+              (B = (B + Math.imul(oe, rt)) | 0),
               (T = (T + Math.imul(oe, Fe)) | 0));
             var Ot = (((t + c) | 0) + ((B & 8191) << 13)) | 0;
             ((t = (((T + (B >>> 13)) | 0) + (Ot >>> 26)) | 0),
@@ -44690,9 +44680,9 @@ function fp() {
               (B = (B + Math.imul(Re, Ee)) | 0),
               (B = (B + Math.imul(le, tt)) | 0),
               (T = (T + Math.imul(le, Ee)) | 0),
-              (c = (c + Math.imul(H, nt)) | 0),
+              (c = (c + Math.imul(H, rt)) | 0),
               (B = (B + Math.imul(H, Fe)) | 0),
-              (B = (B + Math.imul(X, nt)) | 0),
+              (B = (B + Math.imul(X, rt)) | 0),
               (T = (T + Math.imul(X, Fe)) | 0),
               (c = (c + Math.imul(ee, Mt)) | 0),
               (B = (B + Math.imul(ee, Ne)) | 0),
@@ -44709,9 +44699,9 @@ function fp() {
               (B = (B + Math.imul(Xe, Ee)) | 0),
               (B = (B + Math.imul(Me, tt)) | 0),
               (T = (T + Math.imul(Me, Ee)) | 0),
-              (c = (c + Math.imul(Re, nt)) | 0),
+              (c = (c + Math.imul(Re, rt)) | 0),
               (B = (B + Math.imul(Re, Fe)) | 0),
-              (B = (B + Math.imul(le, nt)) | 0),
+              (B = (B + Math.imul(le, rt)) | 0),
               (T = (T + Math.imul(le, Fe)) | 0),
               (c = (c + Math.imul(H, Mt)) | 0),
               (B = (B + Math.imul(H, Ne)) | 0),
@@ -44732,9 +44722,9 @@ function fp() {
               (B = (B + Math.imul(W, Ee)) | 0),
               (B = (B + Math.imul(z, tt)) | 0),
               (T = (T + Math.imul(z, Ee)) | 0),
-              (c = (c + Math.imul(Xe, nt)) | 0),
+              (c = (c + Math.imul(Xe, rt)) | 0),
               (B = (B + Math.imul(Xe, Fe)) | 0),
-              (B = (B + Math.imul(Me, nt)) | 0),
+              (B = (B + Math.imul(Me, rt)) | 0),
               (T = (T + Math.imul(Me, Fe)) | 0),
               (c = (c + Math.imul(Re, Mt)) | 0),
               (B = (B + Math.imul(Re, Ne)) | 0),
@@ -44759,9 +44749,9 @@ function fp() {
               (B = (B + Math.imul(me, Ee)) | 0),
               (B = (B + Math.imul(se, tt)) | 0),
               (T = (T + Math.imul(se, Ee)) | 0),
-              (c = (c + Math.imul(W, nt)) | 0),
+              (c = (c + Math.imul(W, rt)) | 0),
               (B = (B + Math.imul(W, Fe)) | 0),
-              (B = (B + Math.imul(z, nt)) | 0),
+              (B = (B + Math.imul(z, rt)) | 0),
               (T = (T + Math.imul(z, Fe)) | 0),
               (c = (c + Math.imul(Xe, Mt)) | 0),
               (B = (B + Math.imul(Xe, Ne)) | 0),
@@ -44790,9 +44780,9 @@ function fp() {
               (B = (B + Math.imul(Ke, Ee)) | 0),
               (B = (B + Math.imul(ge, tt)) | 0),
               (T = (T + Math.imul(ge, Ee)) | 0),
-              (c = (c + Math.imul(me, nt)) | 0),
+              (c = (c + Math.imul(me, rt)) | 0),
               (B = (B + Math.imul(me, Fe)) | 0),
-              (B = (B + Math.imul(se, nt)) | 0),
+              (B = (B + Math.imul(se, rt)) | 0),
               (T = (T + Math.imul(se, Fe)) | 0),
               (c = (c + Math.imul(W, Mt)) | 0),
               (B = (B + Math.imul(W, Ne)) | 0),
@@ -44825,9 +44815,9 @@ function fp() {
               (B = (B + Math.imul(_e, Ee)) | 0),
               (B = (B + Math.imul(he, tt)) | 0),
               (T = (T + Math.imul(he, Ee)) | 0),
-              (c = (c + Math.imul(Ke, nt)) | 0),
+              (c = (c + Math.imul(Ke, rt)) | 0),
               (B = (B + Math.imul(Ke, Fe)) | 0),
-              (B = (B + Math.imul(ge, nt)) | 0),
+              (B = (B + Math.imul(ge, rt)) | 0),
               (T = (T + Math.imul(ge, Fe)) | 0),
               (c = (c + Math.imul(me, Mt)) | 0),
               (B = (B + Math.imul(me, Ne)) | 0),
@@ -44864,9 +44854,9 @@ function fp() {
               (B = (B + Math.imul(Qe, Ee)) | 0),
               (B = (B + Math.imul(V, tt)) | 0),
               (T = (T + Math.imul(V, Ee)) | 0),
-              (c = (c + Math.imul(_e, nt)) | 0),
+              (c = (c + Math.imul(_e, rt)) | 0),
               (B = (B + Math.imul(_e, Fe)) | 0),
-              (B = (B + Math.imul(he, nt)) | 0),
+              (B = (B + Math.imul(he, rt)) | 0),
               (T = (T + Math.imul(he, Fe)) | 0),
               (c = (c + Math.imul(Ke, Mt)) | 0),
               (B = (B + Math.imul(Ke, Ne)) | 0),
@@ -44903,9 +44893,9 @@ function fp() {
               (B = Math.imul($, Ee)),
               (B = (B + Math.imul(Y, tt)) | 0),
               (T = Math.imul(Y, Ee)),
-              (c = (c + Math.imul(Qe, nt)) | 0),
+              (c = (c + Math.imul(Qe, rt)) | 0),
               (B = (B + Math.imul(Qe, Fe)) | 0),
-              (B = (B + Math.imul(V, nt)) | 0),
+              (B = (B + Math.imul(V, rt)) | 0),
               (T = (T + Math.imul(V, Fe)) | 0),
               (c = (c + Math.imul(_e, Mt)) | 0),
               (B = (B + Math.imul(_e, Ne)) | 0),
@@ -44938,9 +44928,9 @@ function fp() {
             var jt = (((t + c) | 0) + ((B & 8191) << 13)) | 0;
             ((t = (((T + (B >>> 13)) | 0) + (jt >>> 26)) | 0),
               (jt &= 67108863),
-              (c = Math.imul($, nt)),
+              (c = Math.imul($, rt)),
               (B = Math.imul($, Fe)),
-              (B = (B + Math.imul(Y, nt)) | 0),
+              (B = (B + Math.imul(Y, rt)) | 0),
               (T = Math.imul(Y, Fe)),
               (c = (c + Math.imul(Qe, Mt)) | 0),
               (B = (B + Math.imul(Qe, Ne)) | 0),
@@ -46882,9 +46872,9 @@ function Vn() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -53210,9 +53200,9 @@ function wB() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -57521,9 +57511,9 @@ function NB() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -59963,9 +59953,9 @@ function vp() {
               tt = v[2] | 0,
               Ee = tt & 8191,
               Ce = tt >>> 13,
-              nt = v[3] | 0,
-              Fe = nt & 8191,
-              He = nt >>> 13,
+              rt = v[3] | 0,
+              Fe = rt & 8191,
+              He = rt >>> 13,
               Mt = v[4] | 0,
               Ne = Mt & 8191,
               $e = Mt >>> 13,
@@ -62055,9 +62045,9 @@ function WB() {
   const e = (n) => {
     n.key === "Enter" && (n.preventDefault(), ne());
   };
-  return rt.jsx(rt.Fragment, {
+  return nt.jsx(nt.Fragment, {
     children: M
-      ? rt.jsx(nE, {
+      ? nt.jsx(nE, {
           isOpen: r,
           onClose: () => s(!1),
           serverURL: l,
@@ -62072,7 +62062,7 @@ function WB() {
           checkedIn: M,
           logoutUser: de,
         })
-      : rt.jsx("div", {
+      : nt.jsx("div", {
           className: `
     min-w-24
     min-h-24
@@ -62085,31 +62075,31 @@ function WB() {
     transition-transform transition-opacity duration-200
     ${r ? "opacity-100 translate-y-0" : "opacity-0 pointer-events-none translate-y-4"}
   `,
-          children: rt.jsx("div", {
+          children: nt.jsx("div", {
             className:
               "flex items-center justify-between px-4 pt-3 pb-2 border-b border-white/10",
-            children: rt.jsx("div", {
+            children: nt.jsx("div", {
               className: "text-xl text-white/70",
-              children: rt.jsxs("form", {
+              children: nt.jsxs("form", {
                 onSubmit: ne,
                 className: "px-5 pt-4 pb-5 space-y-4 text-xl",
                 children: [
-                  rt.jsx("h2", {
+                  nt.jsx("h2", {
                     className: "text-xl font-semibold tracking-tight",
-                    children: rt.jsx("img", {
+                    children: nt.jsx("img", {
                       src: "imh-ai-assistant.png",
                       alt: "AI Assistant",
                       className: "imh-title-img",
                     }),
                   }),
-                  rt.jsxs("div", {
+                  nt.jsxs("div", {
                     className: "space-y-2",
                     children: [
-                      rt.jsx("label", {
+                      nt.jsx("label", {
                         className: "block text-xl text-white/60 mb-1",
                         children: "Username",
                       }),
-                      rt.jsx("input", {
+                      nt.jsx("input", {
                         type: "text",
                         autoComplete: "username",
                         value: u,
@@ -62125,14 +62115,14 @@ function WB() {
                       }),
                     ],
                   }),
-                  rt.jsxs("div", {
+                  nt.jsxs("div", {
                     className: "space-y-2",
                     children: [
-                      rt.jsx("label", {
+                      nt.jsx("label", {
                         className: "block text-xl text-white/60 mb-1",
                         children: "Passphrase",
                       }),
-                      rt.jsx("input", {
+                      nt.jsx("input", {
                         type: "password",
                         autoComplete: "current-password",
                         value: i,
@@ -62150,11 +62140,11 @@ function WB() {
                     ],
                   }),
                   _ &&
-                    rt.jsx("p", {
+                    nt.jsx("p", {
                       className: "text-xl text-red-400",
                       children: "Login error. Please check your credentials.",
                     }),
-                  rt.jsx("button", {
+                  nt.jsx("button", {
                     type: "submit",
                     className: `
                   w-full mt-2
@@ -62172,5 +62162,5 @@ function WB() {
   });
 }
 T6.createRoot(document.getElementById("ai-assistant-block")).render(
-  rt.jsx(E6.StrictMode, { children: rt.jsx(WB, {}) })
+  nt.jsx(E6.StrictMode, { children: nt.jsx(WB, {}) })
 );
